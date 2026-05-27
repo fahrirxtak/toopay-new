@@ -180,7 +180,24 @@ const logoLoopBrands = [
 ];
 
 const navigateLinks = ["Home", "Projects", "Service", "About", "Contact"];
-const socialLinks = ["Instagram", "Twitter (X)", "LinkedIn", "Dribbble"];
+const socialLinks = [
+  {
+    name: "Instagram",
+    url: "https://www.instagram.com/toopay.web",
+  },
+  {
+    name: "Twitter (X)",
+    url: "https://x.com/tooopayy",
+  },
+  {
+    name: "LinkedIn",
+    url: "https://linkedin.com/in/tooopayy",
+  },
+  {
+    name: "Tiktok",
+    url: "https://www.tiktok.com/@toopay.web",
+  },
+];
 
 const starIconPathDrawing =
   "M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z";
