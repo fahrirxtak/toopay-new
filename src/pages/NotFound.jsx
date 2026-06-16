@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export default function NotFound() {
+  const { t } = useLanguage();
   return (
     <motion.main
       className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden"
@@ -26,12 +28,11 @@ export default function NotFound() {
         </h1>
 
         <p className="mt-6 text-xl md:text-2xl font-light text-zinc-600">
-          This page doesn’t exist.
+          {t.notFound.title}
         </p>
 
         <p className="mt-4 text-base md:text-lg font-light text-zinc-500 leading-relaxed max-w-xl mx-auto">
-          The page you’re looking for may have been moved, deleted, or never
-          existed. Let’s get you back to something meaningful.
+          {t.notFound.text}
         </p>
 
         {/* Action */}
@@ -41,7 +42,7 @@ export default function NotFound() {
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-zinc-200 text-sm font-medium transition
                        hover:bg-prime-accent hover:text-zinc-900 hover:border-transparent"
           >
-            Go Home
+            {t.notFound.goHome}
           </Link>
 
           <button
@@ -49,7 +50,7 @@ export default function NotFound() {
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-medium text-zinc-500 transition
                        hover:text-zinc-900"
           >
-            Go Back
+            {t.notFound.goBack}
           </button>
         </div>
       </motion.div>

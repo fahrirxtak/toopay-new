@@ -1,12 +1,16 @@
 import { ArrowRight, ArrowUp } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { navigateLinks, socialLinks } from "../../assets/data";
+import { socialLinks } from "../../assets/data";
+import { useLanguage } from "../../i18n/LanguageContext";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Daftarkan plugin
 gsap.registerPlugin(ScrollTrigger);
+
+// Scroll anchors paired by index with footer.navLinks in translations.
+const NAV_ANCHORS = ["hero", "projects", "service", "about", "contact"];
 
 // --- KOMPONEN LINKITEM ---
 const LinkItem = ({ children, href, target, rel, ariaLabel, onClick }) => {
@@ -34,6 +38,7 @@ const LinkItem = ({ children, href, target, rel, ariaLabel, onClick }) => {
 };
 
 const Footer = () => {
+  const { t, lang } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -208,7 +213,7 @@ const Footer = () => {
         }
       });
     };
-  }, []);
+  }, [lang]);
 
   return (
     <footer
@@ -222,7 +227,7 @@ const Footer = () => {
           {/* Text */}
           <div ref={ctaTextRef} className="w-full lg:w-auto max-w-full">
             <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-3 md:mb-4">
-              Have any project in mind?
+              {t.footer.ctaLabel}
             </p>
             <a
               href="mailto:tooopayy@gmail.com"
@@ -238,7 +243,7 @@ const Footer = () => {
           <div className="relative flex items-center mt-2 lg:mt-0 shrink-0">
             <Link to="/contact">
               <button className="group relative px-8 py-4 bg-white hover:bg-brand-blue text-black hover:text-white rounded-full font-bold flex items-center gap-4 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg border border-zinc-100 whitespace-nowrap">
-                Book a Call
+                {t.footer.bookCall}
                 <div className="size-10 md:size-12 bg-zinc-100 group-hover:bg-white/20 rounded-full flex items-center justify-center transition-colors">
                   <ArrowRight
                     size={20}
@@ -260,13 +265,11 @@ const Footer = () => {
             className="md:col-span-6 lg:col-span-7 order-2 md:order-1"
           >
             <p className="text-sm text-zinc-400 mb-6">
-              &copy; {new Date().getFullYear()} TooPay Creative.
+              &copy; {new Date().getFullYear()} {t.footer.copyrightSuffix}
             </p>
 
             <p className="text-lg md:text-xl font-medium leading-snug max-w-md text-zinc-300">
-              Collaborate with our team of strategists, designers, and
-              developers—united by passion, driven by excellence, and committed
-              to delivering exceptional results.
+              {t.footer.blurb}
             </p>
           </div>
 
@@ -276,21 +279,13 @@ const Footer = () => {
             className="md:col-span-3 lg:col-span-2 order-3 md:order-2"
           >
             <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-6">
-              Navigate
+              {t.footer.navigate}
             </p>
             <ul className="flex flex-col gap-3">
-              {navigateLinks.map((link) => {
-                const targetId = (
-                  link === "Home"
-                    ? "hero"
-                    : link === "Projects"
-                      ? "projects"
-                      : link === "Contact"
-                        ? "contact"
-                        : link
-                ).toLowerCase();
+              {t.footer.navLinks.map((link, i) => {
+                const targetId = NAV_ANCHORS[i];
                 return (
-                  <li key={link}>
+                  <li key={`${lang}-${targetId}`}>
                     <LinkItem
                       href={`#${targetId}`}
                       onClick={(e) => handleNavClick(e, targetId)}
@@ -309,11 +304,11 @@ const Footer = () => {
             className="md:col-span-3 order-4 md:order-3"
           >
             <p className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-6">
-              Social Media
+              {t.footer.socialMedia}
             </p>
             <ul className="flex flex-col gap-3">
               {socialLinks.map((link) => (
-                <li key={link.name}>
+                <li key={`${lang}-${link.name}`}>
                   <LinkItem
                     href={link.url}
                     target="_blank"

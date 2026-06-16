@@ -3,55 +3,27 @@ import { ArrowRight, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { projects, milestones } from "../assets/data";
+import { projects, milestones as milestoneData } from "../assets/data";
+import { useLanguage } from "../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const allProjects = [
-  {
-    ...projects[0],
-    description: "AI-powered chat platform with real-time collaboration features and a modern, intuitive interface.",
-    client: "Chat Genius Ltd.",
-    year: "2024",
-  },
-  {
-    ...projects[1],
-    description: "Full brand identity and social media strategy for a premium typography foundry.",
-    client: "Field Type Studio",
-    year: "2023",
-  },
-  {
-    title: "Rock Bottom",
-    date: "(2026 — Ongoing)",
-    tags: ["Graphic Design"],
-    image: "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2070&auto=format&fit=crop",
-    description: "A bold graphic design project exploring raw, unfiltered visual storytelling through typography and texture.",
-    client: "Independent",
-    year: "2026",
-  },
-  {
-    title: "Neon Pulse",
-    date: "(2025 — Mar 2025)",
-    tags: ["Brand Identity", "UI/UX Design"],
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop",
-    description: "Complete brand overhaul for a tech startup — from logo system to full digital product design.",
-    client: "Neon Pulse Inc.",
-    year: "2025",
-  },
-  {
-    title: "Verdant",
-    date: "(2024 — Dec 2024)",
-    tags: ["Development", "UI/UX Design"],
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2070&auto=format&fit=crop",
-    description: "Full-stack web platform for an eco-conscious lifestyle brand, built with React and Node.js.",
-    client: "Verdant Co.",
-    year: "2024",
-  },
+// Structural data only (image, year, language-neutral tagKeys for filtering).
+// Display text (title/date/tags/description/client) comes from translations,
+// merged by index. tagKeys must match filter `key`s exactly.
+const projectMeta = [
+  { image: projects[0].image, year: "2024", tagKeys: ["Website Design", "Development"] },
+  { image: projects[1].image, year: "2023", tagKeys: ["Branding", "Social Media"] },
+  { image: "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2070&auto=format&fit=crop", year: "2026", tagKeys: ["Graphic Design"] },
+  { image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop", year: "2025", tagKeys: ["Brand Identity", "UI/UX Design"] },
+  { image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2070&auto=format&fit=crop", year: "2024", tagKeys: ["Development", "UI/UX Design"] },
 ];
 
-const filters = ["All", "Brand Identity", "UI/UX Design", "Development", "Graphic Design"];
-
 const ProjectsPage = () => {
+  const { t } = useLanguage();
+  const milestones = milestoneData.map((m, i) => ({ ...m, ...t.work.milestones[i] }));
+  const allProjects = projectMeta.map((meta, i) => ({ ...meta, ...t.projects.items[i] }));
+  const filters = t.projects.filters;
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState(null);
 
@@ -69,7 +41,7 @@ const ProjectsPage = () => {
 
   const filtered = activeFilter === "All"
     ? allProjects
-    : allProjects.filter((p) => p.tags.includes(activeFilter));
+    : allProjects.filter((p) => p.tagKeys.includes(activeFilter));
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -225,14 +197,14 @@ const ProjectsPage = () => {
               ref={subTitleRef}
               className="uppercase text-prime-white lg:text-sm 2xl:text-base font-bold tracking-[0.3rem] mb-8"
             >
-              Our Portfolio
+              {t.projects.eyebrow}
             </p>
 
             <h1
               ref={titleRef}
               className="text-4xl lg:text-5xl 2xl:text-7xl max-w-2xl lg:max-w-4xl font-medium tracking-tighter leading-tight"
             >
-              Work that doesn't blend in — crafted with intention.
+              {t.projects.title}
             </h1>
 
             {/* Milestones strip */}
@@ -270,7 +242,7 @@ const ProjectsPage = () => {
           </div>
 
           <div className="absolute right-14 -top-40 text-[10px] uppercase font-bold tracking-[0.2rem] opacity-60 hidden lg:block">
-            (scroll to work)
+            {t.projects.scroll}
           </div>
         </div>
       </section>
@@ -282,14 +254,14 @@ const ProjectsPage = () => {
           {/* Filters */}
           <div ref={filterRef} className="flex flex-wrap gap-3 mb-16 opacity-0">
             {filters.map((f) => (
-              <button key={f} onClick={() => setActiveFilter(f)}
+              <button key={f.key} onClick={() => setActiveFilter(f.key)}
                 className={`px-5 py-2.5 rounded-full border text-sm font-semibold transition-all ${
-                  activeFilter === f
+                  activeFilter === f.key
                     ? "bg-brand-navy text-white border-brand-navy"
                     : "border-zinc-200 text-zinc-500 hover:border-brand-navy hover:text-brand-navy"
                 }`}
               >
-                {f}
+                {f.label}
               </button>
             ))}
           </div>
@@ -301,7 +273,7 @@ const ProjectsPage = () => {
                 <div className="aspect-[4/3] bg-zinc-100 rounded-3xl overflow-hidden mb-5 relative">
                   <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                     <span className="text-white font-semibold tracking-wide flex items-center gap-2">
-                      View Project <ArrowRight size={16} />
+                      {t.projects.viewProject} <ArrowRight size={16} />
                     </span>
                   </div>
                   <img src={project.image} alt={project.title} loading="lazy"
@@ -353,11 +325,11 @@ const ProjectsPage = () => {
 
               <div className="grid grid-cols-2 gap-6 mb-8 pt-8 border-t border-zinc-100">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">Client</p>
-                  <p className="font-semibold">{selectedProject.client || "Confidential"}</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">{t.projects.clientLabel}</p>
+                  <p className="font-semibold">{selectedProject.client || t.projects.confidential}</p>
                 </div>
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">Year</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">{t.projects.yearLabel}</p>
                   <p className="font-semibold">{selectedProject.year || "—"}</p>
                 </div>
               </div>
@@ -370,7 +342,7 @@ const ProjectsPage = () => {
 
               <Link to="/contact" onClick={closeModal}
                 className="inline-flex items-center gap-3 px-7 py-3.5 bg-brand-navy text-white rounded-full font-bold hover:bg-blue-700 transition-all">
-                Start a Similar Project <ArrowRight size={18} />
+                {t.projects.similarProject} <ArrowRight size={18} />
               </Link>
             </div>
           </div>
