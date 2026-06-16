@@ -3,10 +3,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import gsap from "gsap";
 import { splitTextToChars } from "../../../utils/textUtils";
-
-const navItem = ["About", "Service", "Projects", "Team", "Reviews"];
+import { useLanguage } from "../../../i18n/LanguageContext";
+import LanguageToggle from "../../../i18n/LanguageToggle";
 
 const MobileMenu = ({ isOpen, onClose, isAnimating, setIsAnimating }) => {
+    const { t, lang } = useLanguage();
     const [visible, setVisible] = useState(false);
 
     const mobileMenuRef = useRef(null);
@@ -253,7 +254,7 @@ const MobileMenu = ({ isOpen, onClose, isAnimating, setIsAnimating }) => {
                 }
             });
         };
-    }, [isOpen, isAnimating]);
+    }, [isOpen, isAnimating, lang]);
 
     // Manage body overflow
     useEffect(() => {
@@ -304,31 +305,35 @@ const MobileMenu = ({ isOpen, onClose, isAnimating, setIsAnimating }) => {
                         </div>
                     </Link>
 
-                    {/* Close Button */}
-                    <button
-                        onClick={onClose}
-                        disabled={isAnimating}
-                        className="size-12 rounded-full flex items-center justify-center border border-white/20 hover:bg-white/10 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                        aria-label="Close menu"
-                    >
-                        <X size={24} />
-                    </button>
+                    {/* Toggle + Close Button */}
+                    <div className="flex items-center gap-3">
+                        <LanguageToggle />
+                        <button
+                            onClick={onClose}
+                            disabled={isAnimating}
+                            className="size-12 rounded-full flex items-center justify-center border border-white/20 hover:bg-white/10 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            aria-label="Close menu"
+                        >
+                            <X size={24} />
+                        </button>
+                    </div>
                 </div>
 
                 {/* NAVLINKS */}
                 <div className="flex flex-col gap-4 mt-8">
-                    {navItem.map((item, index) => {
-                        const isActive = pathname === `/${item.toLowerCase()}`;
+                    {t.nav.items.map((item, index) => {
+                        const anchor = t.nav.anchors[index];
+                        const isActive = pathname === `/${anchor}`;
 
                         return (
                             <div
-                                key={index}
+                                key={`${lang}-${index}`}
                                 className="mobile-nav-link"
                                 ref={el => navLinksRef.current[index] = el}
                             >
                         <a
-                                    href={`#${item.toLowerCase()}`}
-                                    onClick={(e) => handleNavClick(e, item.toLowerCase())}
+                                    href={`#${anchor}`}
+                                    onClick={(e) => handleNavClick(e, anchor)}
                                     className={`mobile-nav-link-item relative inline-block overflow-hidden leading-none cursor-pointer text-5xl text-pretty md:text-7xl font-light tracking-tight h-fit ${isActive ? "text-prime-accent" : "text-white"
                                         }`}
                                     style={{ lineHeight: "1" }}
@@ -355,7 +360,7 @@ const MobileMenu = ({ isOpen, onClose, isAnimating, setIsAnimating }) => {
                         {/* 1 */}
                         <div className="location-info">
                             <h4 className="text-[10px] uppercase tracking-widest text-white/40 mb-3 font-bold">
-                                Location
+                                {t.mobileMenu.locationLabel}
                             </h4>
                             <p className="text-sm font-medium leading-relaxed">
                                 Bandung <br /> Jawa Barat, Indonesia
@@ -365,7 +370,7 @@ const MobileMenu = ({ isOpen, onClose, isAnimating, setIsAnimating }) => {
                         {/* 2 */}
                         <div className="contact-info">
                             <h4 className="text-[10px] uppercase tracking-widest text-white/40 mb-3 font-bold">
-                                Contact
+                                {t.mobileMenu.contactLabel}
                             </h4>
                             <p className="text-sm font-medium leading-relaxed">
                                 +62 878 7698 2219 <br />
@@ -377,7 +382,7 @@ const MobileMenu = ({ isOpen, onClose, isAnimating, setIsAnimating }) => {
                     {/* PART B */}
                     <div className="footer-content flex flex-col md:flex-row justify-between items-end md:items-center gap-4 border-t border-white/10 pt-6">
                         <p className="copyright text-[10px] uppercase tracking-[2em] text-white/40">
-                            &copy; {new Date().getFullYear()}. Toopay Agency
+                            &copy; {new Date().getFullYear()}. {t.mobileMenu.copyright}
                         </p>
 
                         {/* Socials */}

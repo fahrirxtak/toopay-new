@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { iconPathDrawing, users } from "../assets/data";
+import { useLanguage } from "../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
+  const { t } = useLanguage();
   const headingRef = useRef(null);
   const card1Ref = useRef(null);
   const card2Ref = useRef(null);
@@ -130,8 +132,8 @@ const About = () => {
             style={{ willChange: "transform, opacity" }}
             className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.1] max-w-5xl text-black"
           >
-            Reshaping what exists, we're here to help you stand out –{" "}
-            <span className="text-brand-navy/40">with clarity, creativity, and edge.</span>
+            {t.about.headingLead}{" "}
+            <span className="text-brand-navy/40">{t.about.headingAccent}</span>
           </h2>
 
           <div className="hidden lg:flex size-12 bg-prime-accent rounded-full items-center justify-center shadow-lg">
@@ -157,10 +159,10 @@ const About = () => {
             </div>
             <div>
               <p className="text-[10px] font-bold uppercase tracking-[0.2rem] mb-4 opacity-70">
-                Made for the bold
+                {t.about.card1Label}
               </p>
               <h3 className="text-3xl font-medium leading-tight">
-                Design experience, not just screen. Tell stories, not just taglines.
+                {t.about.card1Title}
               </h3>
             </div>
           </div>
@@ -173,7 +175,7 @@ const About = () => {
           >
             <div className="text-white/10 text-8xl font-black italic">Error</div>
             <div className="absolute bottom-6 left-6 px-4 py-2 bg-zinc-800/60 backdrop-blur-md rounded-full border border-white/10">
-              <span className="text-xs font-medium text-white">Est. 2010</span>
+              <span className="text-xs font-medium text-white">{t.about.established}</span>
             </div>
           </div>
 
@@ -184,7 +186,7 @@ const About = () => {
             className="bg-zinc-50 rounded-[2.5rem] p-10 flex flex-col justify-between min-h-[400px]"
           >
             <div>
-              <p className="text-xs font-medium text-zinc-400 mb-6">(Growth)</p>
+              <p className="text-xs font-medium text-zinc-400 mb-6">{t.about.growthLabel}</p>
               <h3 className="text-8xl font-semibold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-navy">
                 <span ref={percentNumberRef}>0%</span>
               </h3>
@@ -192,7 +194,7 @@ const About = () => {
 
             <div className="pt-8 border-t border-zinc-200 flex flex-col gap-6">
               <p className="text-zinc-600 font-medium max-w-[200px]">
-                Design experience, not just screen.
+                {t.about.growthDesc}
               </p>
               <div className="flex -space-x-3">
                 {users.map((user, i) => (
@@ -210,15 +212,15 @@ const About = () => {
 
         {/* BOTTOM FOOTER BAR */}
         <div className="pt-8 border-t border-zinc-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <p className="text-xs font-medium text-zinc-400 uppercase tracking-widest">(About - 01)</p>
+          <p className="text-xs font-medium text-zinc-400 uppercase tracking-widest">{t.about.sectionTag}</p>
           <p className="text-zinc-500 font-medium max-w-sm text-sm">
-            We help you to shape your ideas into visuable that resonate, disrupt, and last.
+            {t.about.footerText}
           </p>
           <Link
             to="/contact"
             className="text-zinc-900 font-bold border-b-2 pt-1 hover:text-blue-600 transition-all cursor-pointer"
           >
-            Book a Call Now
+            {t.about.bookCall}
           </Link>
         </div>
       </div>

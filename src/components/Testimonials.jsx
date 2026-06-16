@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { logoLoopTech, testimonials } from "../assets/data";
+import { logoLoopTech, testimonials as testimonialData } from "../assets/data";
 import LogoLoop from "./LogoLoop";
+import { useLanguage } from "../i18n/LanguageContext";
 import {
   SiReact,
   SiNextdotjs,
@@ -34,6 +35,8 @@ const renderLogoItem = (item) => {
 };
 
 const Testimonials = () => {
+  const { t } = useLanguage();
+  const testimonials = testimonialData.map((item, i) => ({ ...item, ...t.testimonials.items[i] }));
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -137,12 +140,12 @@ const Testimonials = () => {
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-end border-b border-zinc-100 pb-12 mb-16">
           <div>
-            <p className="text-sm font-medium text-zinc-500 mb-4">(REVIEWS — 05)</p>
+            <p className="text-sm font-medium text-zinc-500 mb-4">{t.testimonials.sectionTag}</p>
             <h2
               ref={headingRef}
               className="text-5xl md:text-6xl lg:text-9xl font-semibold tracking-tighter bg-gradient-to-r from-brand-blue to-brand-navy bg-clip-text text-transparent"
             >
-              Testimonials
+              {t.testimonials.heading}
             </h2>
           </div>
 
@@ -186,7 +189,7 @@ const Testimonials = () => {
           {/* LEFT Sidebar */}
           <div className="lg:col-span-3 flex flex-col justify-between">
             <p className="text-[10px] font-bold uppercase tracking-tight leading-tight max-w-[120px]">
-              Words from the ones who know us best
+              {t.testimonials.sidebar}
             </p>
 
             <div className="mt-16">
@@ -240,7 +243,7 @@ const Testimonials = () => {
           <div className="flex items-center gap-2 mb-8">
             <span className="text-zinc-900 text-lg">•</span>
             <p className="text-sm font-semibold text-zinc-800">
-              Working with brands that matters
+              {t.testimonials.brandFooter}
             </p>
           </div>
 
