@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ourTeamImagePlaceHolder } from '../assets/data';
+import { splitWords } from "../utils/gsapReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,59 +15,71 @@ const Hero = () => {
   const actionRef = useRef(null);
 
   useEffect(() => {
-    const brandText = brandTextRef.current;
     const section = sectionRef.current;
+    const brandText = brandTextRef.current;
+    if (!section || !brandText) return;
 
-    if (!brandText || !section) return;
+    let titleWords = [];
+    let subWords = [];
+
+    try {
+      titleWords = splitWords(titleRef.current);
+      subWords = splitWords(subTitleRef.current);
+    } catch (e) {
+      console.warn("splitWords failed", e);
+    }
 
     const ctx = gsap.context(() => {
       const isMobile = window.innerWidth < 1024;
 
-      // Optimasi: Aktifkan GPU acceleration dengan force3D
-      gsap.set(brandText, { force3D: true, willChange: "transform" });
+      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
-      // --- 1. ENTRY ANIMATION (CLEAN & MODERN) ---
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+      tl.fromTo(section, { opacity: 0 }, { opacity: 1, duration: 1 });
 
-      tl.fromTo(
-        section,
-        { opacity: 0 },
-        { opacity: 1, duration: 1.5 }
-      )
-        .fromTo(
+      if (brandText) {
+        tl.fromTo(
           brandText,
-          { opacity: 0, scale: 1.2, filter: "blur(10px)" },
-          { opacity: 1, scale: 1, filter: "blur(0px)", duration: 2, ease: "expo.out" },
-          0.2
-        )
-        .fromTo(
-          subTitleRef.current,
-          { opacity: 0, y: 30, letterSpacing: "1rem" },
-          { opacity: 0.6, y: 0, letterSpacing: "0.3rem", duration: 1.2 },
-          0.5
-        )
-        .fromTo(
-          titleRef.current,
-          { opacity: 0, y: 40, skewY: 2 },
-          { opacity: 1, y: 0, skewY: 0, duration: 1.2 },
-          0.7
-        )
-        .fromTo(
+          { opacity: 0, scale: 1.15, filter: "blur(14px)" },
+          { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.8 },
+          0.1
+        );
+      }
+
+      if (subWords.length) {
+        tl.fromTo(
+          subWords,
+          { yPercent: 110 },
+          { yPercent: 0, duration: 1, stagger: 0.04 },
+          0.4
+        );
+      }
+
+      if (titleWords.length) {
+        tl.fromTo(
+          titleWords,
+          { yPercent: 110, rotate: 4 },
+          { yPercent: 0, rotate: 0, duration: 1.2, stagger: 0.05 },
+          0.55
+        );
+      }
+
+      if (actionRef.current) {
+        tl.fromTo(
           actionRef.current,
-          { opacity: 0, y: 20, scale: 0.95 },
-          { opacity: 1, y: 0, scale: 1, duration: 1, ease: "back.out(1.7)" },
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1 },
           0.9
         );
+      }
 
-      // --- 2. SCROLL ANIMATION ---
+      // Parallax brand text
       if (isMobile) {
         gsap.fromTo(
           brandText,
-          { y: 100, force3D: true },
+          { y: 100 },
           {
             y: -150,
             ease: "none",
-            force3D: true,
             scrollTrigger: {
               trigger: section,
               start: "top bottom",
@@ -81,7 +93,6 @@ const Hero = () => {
           x: 200,
           rotate: 2,
           ease: "none",
-          force3D: true,
           scrollTrigger: {
             trigger: section,
             start: "top top",
@@ -92,12 +103,7 @@ const Hero = () => {
       }
     }, section);
 
-    return () => {
-      ctx.revert();
-      if (brandText) {
-        gsap.set(brandText, { willChange: "auto" });
-      }
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -145,16 +151,16 @@ const Hero = () => {
             Design studio that not only creates digital products but also experiences.
           </h1>
 
-            <div ref={actionRef}>
-                <Link to="/contact">
-                  <button className="mt-12 p-3 px-6 flex items-center gap-4 tracking-tight cursor-pointer rounded-full bg-prime-accent text-zinc-950 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl shadow-yellow-500/10">
-                    Let's Collaborate
-                    <div className="size-10 bg-zinc-950 rounded-full flex items-center justify-center">
-                      <ArrowRight size={20} className="text-prime-accent" />
-                    </div>
-                  </button>
-                </Link>
-            </div>
+          <div ref={actionRef}>
+            <Link to="/contact">
+              <button className="mt-12 p-3 px-6 flex items-center gap-4 tracking-tight cursor-pointer rounded-full bg-prime-accent text-zinc-950 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl shadow-yellow-500/10">
+                Let's Collaborate
+                <div className="size-10 bg-zinc-950 rounded-full flex items-center justify-center">
+                  <ArrowRight size={20} className="text-prime-accent" />
+                </div>
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -162,7 +168,6 @@ const Hero = () => {
       <div className="relative w-full h-full pointer-events-none overflow-visible">
         <div
           ref={brandTextRef}
-          style={{ willChange: "transform" }}
           aria-hidden="true"
           className="
             absolute top-1/2 -translate-y-1/2
@@ -174,7 +179,6 @@ const Hero = () => {
             [-webkit-text-stroke:1px_rgba(255,255,255,0.4)]
             lg:[-webkit-text-stroke:0px]
             drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]
-            opacity-0
           "
         >
           Toopay

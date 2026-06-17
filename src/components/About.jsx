@@ -4,134 +4,85 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { iconPathDrawing, users } from "../assets/data";
+import { splitWords, revealWords, revealClip, revealFade } from "../utils/gsapReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
+  const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const card1Ref = useRef(null);
   const card2Ref = useRef(null);
   const card3Ref = useRef(null);
-  const percentNumberRef = useRef(null); // untuk menganimasikan angka
+  const percentNumberRef = useRef(null);
+  const footerRef = useRef(null);
 
   useEffect(() => {
     const heading = headingRef.current;
-    const card1 = card1Ref.current;
-    const card2 = card2Ref.current;
-    const card3 = card3Ref.current;
-    const percentNumber = percentNumberRef.current;
-    const cards = [card1, card2, card3].filter(Boolean);
-
-    // Pastikan semua ref tersedia
+    const cards = [card1Ref.current, card2Ref.current, card3Ref.current].filter(Boolean);
     if (!heading || cards.length === 0) return;
 
-    // Gunakan gsap.context untuk cleanup yang lebih efisien
     const ctx = gsap.context(() => {
-      // Optimasi: Aktifkan GPU acceleration untuk semua elemen yang dianimasikan
-      gsap.set([heading, ...cards], {
-        force3D: true,
-        willChange: "transform, opacity"
-      });
+      // Mask reveal heading word-by-word
+      const titleWords = splitWords(heading);
+      revealWords(titleWords, { trigger: heading, stagger: 0.05 });
 
-      // Animasi heading
-      gsap.fromTo(
-        heading,
-        {
-          opacity: 0,
-          y: 50,
-          force3D: true,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          force3D: true,
-          scrollTrigger: {
-            trigger: heading,
-            start: "top 80%",
-            once: true,
-            refreshPriority: -1,
-            invalidateOnRefresh: false,
-          },
-        }
-      );
-
-      // Animasi kartu
+      // Cards reveal: clip-path + fade slide
       cards.forEach((card, i) => {
-        if (!card) return;
+        revealClip(card, { trigger: card, delay: i * 0.1, duration: 1.3 });
         gsap.fromTo(
           card,
+          { y: 60 },
           {
-            opacity: 0,
-            y: 60,
-            force3D: true,
-          },
-          {
-            opacity: 1,
             y: 0,
-            duration: 0.8,
-            delay: i * 0.15,
-            ease: "power3.out",
-            force3D: true,
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-              once: true,
-              refreshPriority: -1,
-              invalidateOnRefresh: false,
-            },
+            duration: 1.2,
+            delay: i * 0.1,
+            ease: "expo.out",
+            scrollTrigger: { trigger: card, start: "top 85%", once: true },
           }
         );
       });
 
-      // Animasi angka persentase: 0 → 32
-      if (percentNumber && card3) {
-        gsap.to(percentNumber, {
-          innerText: 32,
-          duration: 1.5,
-          ease: "power2.out",
-          onUpdate: function () {
-            // Bulatkan angka dan tambahkan %
-            if (percentNumber) {
-              percentNumber.textContent = Math.round(this.targets()[0].innerText) + "%";
+      // Percent counter
+      const percentEl = percentNumberRef.current;
+      if (percentEl && card3Ref.current) {
+        const counter = { val: 0 };
+        gsap.to(counter, {
+          val: 32,
+          duration: 1.8,
+          ease: "expo.out",
+          onUpdate() {
+            if (percentEl.isConnected) {
+              percentEl.textContent = Math.round(counter.val) + "%";
             }
           },
-          scrollTrigger: {
-            trigger: card3,
-            start: "top 80%",
-            once: true,
-            refreshPriority: -1,
-            invalidateOnRefresh: false,
-          },
+          scrollTrigger: { trigger: card3Ref.current, start: "top 80%", once: true },
         });
       }
-    }, heading.parentElement || document);
 
-    return () => {
-      ctx.revert();
-      // Cleanup: hapus will-change setelah animasi selesai
-      const allElements = [heading, ...cards].filter(Boolean);
-      allElements.forEach((el) => {
-        if (el) {
-          gsap.set(el, { willChange: "auto" });
-        }
-      });
-    };
+      // Footer reveal
+      if (footerRef.current) {
+        revealFade(footerRef.current.children, {
+          trigger: footerRef.current,
+          stagger: 0.08,
+          duration: 1,
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section id="about" className="py-24 bg-white text-brand-navy">
+    <section ref={sectionRef} id="about" className="py-24 bg-white text-brand-navy">
       <div className="container mx-auto px-6 lg:px-4">
         {/* HEAD */}
         <div className="flex flex-col lg:flex-row justify-between items-center mb-16 gap-12">
           <h2
             ref={headingRef}
-            style={{ willChange: "transform, opacity" }}
             className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.1] max-w-5xl text-black"
           >
-            Reshaping what exists, we're here to help you stand out –{" "}
-            <span className="text-brand-navy/40">with clarity, creativity, and edge.</span>
+            Reshaping what exists, we're here to help you stand out – with clarity, creativity, and edge.
           </h2>
 
           <div className="hidden lg:flex size-12 bg-prime-accent rounded-full items-center justify-center shadow-lg">
@@ -147,8 +98,7 @@ const About = () => {
           {/* CARD 1 */}
           <div
             ref={card1Ref}
-            style={{ willChange: "transform, opacity" }}
-           className="bg-gradient-to-br from-blue-700 to-indigo-900 rounded-[2.5rem] p-10 text-white flex flex-col justify-between min-h-[400px]"
+            className="bg-gradient-to-br from-blue-700 to-indigo-900 rounded-[2.5rem] p-10 text-white flex flex-col justify-between min-h-[400px]"
           >
             <div className="size-12 text-white">
               <svg viewBox="0 0 24 24" fill="currentColor" className="size-full">
@@ -168,7 +118,6 @@ const About = () => {
           {/* CARD 2 */}
           <div
             ref={card2Ref}
-            style={{ willChange: "transform, opacity" }}
             className="relative bg-brand-navy rounded-[2.5rem] p-10 text-white flex flex-col items-center justify-center min-h-[400px]"
           >
             <div className="text-white/10 text-8xl font-black italic">Error</div>
@@ -180,7 +129,6 @@ const About = () => {
           {/* CARD 3 */}
           <div
             ref={card3Ref}
-            style={{ willChange: "transform, opacity" }}
             className="bg-zinc-50 rounded-[2.5rem] p-10 flex flex-col justify-between min-h-[400px]"
           >
             <div>
@@ -209,7 +157,10 @@ const About = () => {
         </div>
 
         {/* BOTTOM FOOTER BAR */}
-        <div className="pt-8 border-t border-zinc-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div
+          ref={footerRef}
+          className="pt-8 border-t border-zinc-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-6"
+        >
           <p className="text-xs font-medium text-zinc-400 uppercase tracking-widest">(About - 01)</p>
           <p className="text-zinc-500 font-medium max-w-sm text-sm">
             We help you to shape your ideas into visuable that resonate, disrupt, and last.

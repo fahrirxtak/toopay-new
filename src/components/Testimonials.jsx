@@ -9,6 +9,7 @@ import {
 } from "react-icons/si";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { splitWords, revealWords, revealFade } from "../utils/gsapReveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,6 +38,7 @@ const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
+  const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const quoteRef = useRef(null);
   const authorRef = useRef(null);
@@ -46,28 +48,33 @@ const Testimonials = () => {
 
   const current = testimonials[activeIndex];
 
-  // Animate testimonial content change
+  // Awwwards-style content swap (mask reveal)
   const animateChange = useCallback((newIndex) => {
     if (isAnimating) return;
     setIsAnimating(true);
 
-    const els = [quoteRef.current, authorRef.current, companyRef.current, statsNumberRef.current].filter(Boolean);
+    const els = [
+      quoteRef.current,
+      authorRef.current,
+      companyRef.current,
+      statsNumberRef.current,
+    ].filter(Boolean);
 
     gsap.to(els, {
       opacity: 0,
       y: -20,
-      duration: 0.3,
-      ease: "power2.in",
+      duration: 0.4,
+      ease: "expo.in",
       onComplete: () => {
         setActiveIndex(newIndex);
         gsap.fromTo(
           els,
-          { opacity: 0, y: 20 },
+          { opacity: 0, y: 24 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.5,
-            ease: "power3.out",
+            duration: 0.9,
+            ease: "expo.out",
             stagger: 0.08,
             onComplete: () => setIsAnimating(false),
           }
@@ -86,53 +93,53 @@ const Testimonials = () => {
     animateChange(newIndex);
   };
 
-  // Scroll-triggered intro animations
+  // Scroll-triggered intro
   useEffect(() => {
-    if (headingRef.current) {
-      gsap.fromTo(headingRef.current,
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: headingRef.current, start: "top 80%", once: true } }
-      );
-    }
+    const ctx = gsap.context(() => {
+      // Heading word-by-word
+      if (headingRef.current) {
+        const words = splitWords(headingRef.current);
+        revealWords(words, { trigger: headingRef.current, stagger: 0.06 });
+      }
 
-    if (quoteRef.current) {
-      gsap.fromTo(quoteRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
-          scrollTrigger: { trigger: quoteRef.current, start: "top 85%", once: true } }
-      );
-    }
+      // Quote word reveal
+      if (quoteRef.current) {
+        revealFade(quoteRef.current, {
+          trigger: quoteRef.current,
+          duration: 1.1,
+          y: 30,
+        });
+      }
 
-    if (authorRef.current && companyRef.current) {
-      gsap.fromTo([authorRef.current, companyRef.current],
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out",
-          scrollTrigger: { trigger: quoteRef.current, start: "top 80%", once: true } }
-      );
-    }
+      if (authorRef.current && companyRef.current) {
+        revealFade([authorRef.current, companyRef.current], {
+          trigger: quoteRef.current,
+          duration: 1,
+          stagger: 0.1,
+          delay: 0.2,
+        });
+      }
 
-    if (statsNumberRef.current) {
-      gsap.fromTo(statsNumberRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.8, ease: "power2.out",
-          scrollTrigger: { trigger: statsNumberRef.current, start: "top 85%", once: true } }
-      );
-    }
+      if (statsNumberRef.current) {
+        revealFade(statsNumberRef.current, {
+          trigger: statsNumberRef.current,
+          duration: 1,
+        });
+      }
 
-    if (logoLoopRef.current) {
-      gsap.fromTo(logoLoopRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
-          scrollTrigger: { trigger: logoLoopRef.current, start: "top 85%", once: true } }
-      );
-    }
+      if (logoLoopRef.current) {
+        revealFade(logoLoopRef.current, {
+          trigger: logoLoopRef.current,
+          duration: 1,
+        });
+      }
+    }, sectionRef);
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section id="reviews" className="py-24 bg-white text-brand-navy">
+    <section ref={sectionRef} id="reviews" className="py-24 bg-white text-brand-navy">
       <div className="container mx-auto px-6 lg:px-4">
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-end border-b border-zinc-100 pb-12 mb-16">
@@ -146,7 +153,6 @@ const Testimonials = () => {
             </h2>
           </div>
 
-          {/* Slider controls */}
           <div className="flex gap-3 mb-4">
             <button
               onClick={handlePrev}
@@ -167,7 +173,7 @@ const Testimonials = () => {
           </div>
         </div>
 
-        {/* Dots indicator */}
+        {/* Dots */}
         <div className="flex gap-2 mb-10">
           {testimonials.map((_, i) => (
             <button
@@ -181,9 +187,8 @@ const Testimonials = () => {
           ))}
         </div>
 
-        {/* Main Content */}
+        {/* Main */}
         <div className="grid lg:grid-cols-12 gap-16">
-          {/* LEFT Sidebar */}
           <div className="lg:col-span-3 flex flex-col justify-between">
             <p className="text-[10px] font-bold uppercase tracking-tight leading-tight max-w-[120px]">
               Words from the ones who know us best
@@ -197,7 +202,6 @@ const Testimonials = () => {
             </div>
           </div>
 
-          {/* RIGHT Content */}
           <div className="lg:col-span-9">
             <blockquote
               ref={quoteRef}
@@ -206,9 +210,7 @@ const Testimonials = () => {
               "{current.quote}"
             </blockquote>
 
-            {/* Footer */}
             <div className="flex items-center justify-between gap-8">
-              {/* Author */}
               <div ref={authorRef} className="flex items-center gap-4">
                 <div className="size-14 rounded-full overflow-hidden bg-zinc-100">
                   <img
@@ -223,7 +225,6 @@ const Testimonials = () => {
                 </div>
               </div>
 
-              {/* Company */}
               <div
                 ref={companyRef}
                 className="flex items-center gap-2 text-2xl font-bold tracking-tighter text-brand-navy/40"
