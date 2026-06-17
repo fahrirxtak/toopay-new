@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLanguage } from "../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,12 +16,7 @@ const EMAILJS_PUBLIC_KEY  = "S-jy8IisCQT_kFy2j";
 
 // ──────────────────────────────────────────────────────────────
 
-const services = [
-  { label: "Brand Identity", icon: "✦" },
-  { label: "UI/UX Design", icon: "◈" },
-  { label: "Development", icon: "⌥" },
-  { label: "Other", icon: "+" },
-];
+const serviceIcons = ["✦", "◈", "⌥", "+"];
 
 const budgets = [
   "< $1,000",
@@ -29,14 +25,10 @@ const budgets = [
   "$15,000+",
 ];
 
-const steps = [
-  { step: "01", title: "Inquiry Review", text: "We review your message within 24 hours." },
-  { step: "02", title: "Discovery Call", text: "A short call to align on goals and vision." },
-  { step: "03", title: "Proposal", text: "Tailored scope, timeline, and pricing." },
-  { step: "04", title: "Kick Off", text: "We start building — together." },
-];
-
 const ContactPage = () => {
+  const { t } = useLanguage();
+  const services = t.contact.services.map((label, i) => ({ label, icon: serviceIcons[i] }));
+  const steps = t.contact.steps;
   const [form, setForm] = useState({ name: "", email: "", company: "", service: "", budget: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState("");
@@ -121,7 +113,7 @@ const ContactPage = () => {
       );
       setSubmitted(true);
     } catch (err) {
-      setError("Something went wrong. Please try emailing us directly at tooopayy@gmail.com");
+      setError(t.contact.errorText);
     } finally {
       setSending(false);
     }
@@ -141,17 +133,17 @@ const ContactPage = () => {
         <div className="container mx-auto px-8 lg:px-4 relative z-10 mb-45">
           <div className="max-w-4xl">
             <p ref={subTitleRef} className="uppercase text-prime-white lg:text-sm 2xl:text-base font-bold tracking-[0.3rem] mb-8">
-              Let's Work Together
+              {t.contact.eyebrow}
             </p>
             <h1 ref={titleRef} className="text-4xl lg:text-5xl 2xl:text-7xl max-w-2xl lg:max-w-4xl font-medium tracking-tighter leading-tight">
-              Tell us about your project and let's build something great.
+              {t.contact.title}
             </h1>
             <div ref={actionRef} className="mt-12 flex items-center gap-4 flex-wrap">
               <div className="flex items-center gap-3 px-5 py-3 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm text-sm font-medium">
                 <span className="size-2 rounded-full bg-prime-accent animate-pulse" />
-                Available for new projects
+                {t.contact.available}
               </div>
-              <p className="text-white/50 text-sm">Response within 24h</p>
+              <p className="text-white/50 text-sm">{t.contact.responseTime}</p>
             </div>
           </div>
         </div>
@@ -162,7 +154,7 @@ const ContactPage = () => {
             Contact
           </div>
           <div className="absolute right-14 -top-40 text-[10px] uppercase font-bold tracking-[0.2rem] opacity-60 hidden lg:block">
-            (scroll to form)
+            {t.contact.scroll}
           </div>
         </div>
       </section>
@@ -180,14 +172,14 @@ const ContactPage = () => {
                     <CheckCircle size={36} className="text-green-500" />
                   </div>
                   <div>
-                    <h2 className="text-4xl font-semibold tracking-tight mb-3">Message sent.</h2>
+                    <h2 className="text-4xl font-semibold tracking-tight mb-3">{t.contact.successTitle}</h2>
                     <p className="text-zinc-500 text-lg leading-relaxed max-w-md">
-                      We'll reach out within 24 hours. In the meantime, feel free to explore our work.
+                      {t.contact.successText}
                     </p>
                   </div>
                   <Link to="/projects"
                     className="inline-flex items-center gap-3 px-7 py-3.5 bg-brand-navy text-white rounded-full font-bold hover:bg-blue-700 transition-all hover:scale-105">
-                    See Our Work <ArrowRight size={18} />
+                    {t.contact.seeWork} <ArrowRight size={18} />
                   </Link>
                 </div>
               ) : (
@@ -198,12 +190,12 @@ const ContactPage = () => {
                     <div className="flex items-center gap-4 mb-8">
                       <span className="text-[10px] font-bold text-zinc-300 tracking-widest uppercase">01</span>
                       <div className="h-px flex-1 bg-zinc-100" />
-                      <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">About You</span>
+                      <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{t.contact.sectionAboutYou}</span>
                     </div>
                     <div className="grid sm:grid-cols-2 gap-6">
                       {[
-                        { name: "name", label: "Your Name", placeholder: "Julian Smith", required: true },
-                        { name: "email", label: "Email Address", placeholder: "you@company.com", type: "email", required: true },
+                        { name: "name", label: t.contact.fieldName, placeholder: t.contact.fieldNamePlaceholder, required: true },
+                        { name: "email", label: t.contact.fieldEmail, placeholder: t.contact.fieldEmailPlaceholder, type: "email", required: true },
                       ].map(({ name, label, placeholder, type, required }) => (
                         <div key={name} className="relative">
                           <label className={`absolute -top-2.5 left-0 text-[10px] font-bold uppercase tracking-widest transition-colors duration-200 ${focused === name ? "text-prime-accent" : "text-zinc-400"}`}>
@@ -225,7 +217,7 @@ const ContactPage = () => {
                     </div>
                     <div className="relative mt-8">
                       <label className={`absolute -top-2.5 left-0 text-[10px] font-bold uppercase tracking-widest transition-colors duration-200 ${focused === "company" ? "text-prime-accent" : "text-zinc-400"}`}>
-                        Company / Brand
+                        {t.contact.fieldCompany}
                       </label>
                       <input
                         name="company"
@@ -233,7 +225,7 @@ const ContactPage = () => {
                         onChange={handleChange}
                         onFocus={() => setFocused("company")}
                         onBlur={() => setFocused("")}
-                        placeholder="Your company name"
+                        placeholder={t.contact.fieldCompanyPlaceholder}
                         className={`w-full bg-transparent border-b pt-4 pb-3 text-lg text-brand-navy outline-none transition-colors duration-200 placeholder:text-zinc-300 ${focused === "company" ? "border-prime-accent" : "border-zinc-200"}`}
                       />
                     </div>
@@ -244,7 +236,7 @@ const ContactPage = () => {
                     <div className="flex items-center gap-4 mb-6">
                       <span className="text-[10px] font-bold text-zinc-300 tracking-widest uppercase">02</span>
                       <div className="h-px flex-1 bg-zinc-100" />
-                      <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Service Needed</span>
+                      <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{t.contact.sectionService}</span>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {services.map(({ label, icon }) => {
@@ -270,7 +262,7 @@ const ContactPage = () => {
                     <div className="flex items-center gap-4 mb-6">
                       <span className="text-[10px] font-bold text-zinc-300 tracking-widest uppercase">03</span>
                       <div className="h-px flex-1 bg-zinc-100" />
-                      <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Budget Range</span>
+                      <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{t.contact.sectionBudget}</span>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {budgets.map((b) => {
@@ -295,11 +287,11 @@ const ContactPage = () => {
                     <div className="flex items-center gap-4 mb-8">
                       <span className="text-[10px] font-bold text-zinc-300 tracking-widest uppercase">04</span>
                       <div className="h-px flex-1 bg-zinc-100" />
-                      <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Project Details</span>
+                      <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">{t.contact.sectionDetails}</span>
                     </div>
                     <div className="relative">
                       <label className={`absolute -top-2.5 left-0 text-[10px] font-bold uppercase tracking-widest transition-colors duration-200 ${focused === "message" ? "text-prime-accent" : "text-zinc-400"}`}>
-                        Tell us everything *
+                        {t.contact.fieldMessage} *
                       </label>
                       <textarea
                         required
@@ -309,7 +301,7 @@ const ContactPage = () => {
                         onFocus={() => setFocused("message")}
                         onBlur={() => setFocused("")}
                         rows={5}
-                        placeholder="Describe your project, goals, timeline, references..."
+                        placeholder={t.contact.fieldMessagePlaceholder}
                         className={`w-full bg-transparent border-b pt-4 pb-3 text-lg text-brand-navy outline-none transition-colors duration-200 resize-none placeholder:text-zinc-300 ${focused === "message" ? "border-prime-accent" : "border-zinc-200"}`}
                       />
                     </div>
@@ -317,10 +309,10 @@ const ContactPage = () => {
 
                   {/* Submit */}
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-zinc-100">
-                    <p className="text-zinc-400 text-sm">* Required fields</p>
+                    <p className="text-zinc-400 text-sm">{t.contact.requiredFields}</p>
                     <button type="submit" disabled={sending}
                       className="flex items-center gap-4 p-3 px-6 bg-prime-accent text-zinc-950 rounded-full font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl shadow-yellow-500/10 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100">
-                      {sending ? "Sending..." : "Send Message"}
+                      {sending ? t.contact.sending : t.contact.send}
                       <div className="size-10 bg-zinc-950 rounded-full flex items-center justify-center">
                         <ArrowRight size={18} className="text-prime-accent" />
                       </div>
@@ -338,7 +330,7 @@ const ContactPage = () => {
 
               {/* Contact details */}
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-8">Get in Touch</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-8">{t.contact.getInTouch}</p>
                 <div className="flex flex-col gap-6">
                   <a href="mailto:tooopayy@gmail.com"
                     className="group flex items-start gap-4 hover:text-blue-600 transition-colors">
@@ -346,7 +338,7 @@ const ContactPage = () => {
                       <Mail size={16} className="text-zinc-400 group-hover:text-blue-600 transition-colors" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Email</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">{t.contact.emailLabel}</p>
                       <p className="text-brand-navy font-medium">tooopayy@gmail.com</p>
                     </div>
                   </a>
@@ -355,8 +347,8 @@ const ContactPage = () => {
                       <MapPin size={16} className="text-zinc-400" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Location</p>
-                      <p className="text-brand-navy font-medium">Bandung, Jawa Barat<br />Indonesia</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">{t.contact.locationLabel}</p>
+                      <p className="text-brand-navy font-medium">{t.contact.locationValue}<br />Indonesia</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -364,7 +356,7 @@ const ContactPage = () => {
                       <Clock size={16} className="text-zinc-400" />
                     </div>
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">Timezone</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">{t.contact.timezoneLabel}</p>
                       <p className="text-brand-navy font-medium">WIB — GMT+7</p>
                     </div>
                   </div>
@@ -373,7 +365,7 @@ const ContactPage = () => {
 
               {/* Process */}
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-8">Our Process</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-8">{t.contact.ourProcess}</p>
                 <div className="flex flex-col gap-0">
                   {steps.map(({ step, title, text }, i) => (
                     <div key={step} className="flex gap-5 group">
@@ -394,7 +386,7 @@ const ContactPage = () => {
 
               {/* Socials */}
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-6">Follow Us</p>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-6">{t.contact.followUs}</p>
                 <div className="flex flex-wrap gap-3">
                   {["Instagram", "Twitter (X)", "LinkedIn", "TikTok"].map((s) => (
                     <a key={s} href="#"

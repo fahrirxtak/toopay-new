@@ -1,14 +1,18 @@
-import React, { useEffect, useRef } from "react";
-import { milestones, miniPlaceHolderImage, projects } from "../assets/data";
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useEffect, useRef } from 'react';
+import { milestones as milestoneData, miniPlaceHolderImage, projects as projectData } from '../assets/data';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { splitWords, revealWords, revealClip, revealFade } from "../utils/gsapReveal";
+import { useLanguage } from '../i18n/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Work = () => {
+  const { t } = useLanguage();
+  const projects = projectData.map((p, i) => ({ ...p, ...t.work.projects[i] }));
+  const milestones = milestoneData.map((m, i) => ({ ...m, ...t.work.milestones[i] }));
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const projectImageRefs = useRef([]);
@@ -103,9 +107,10 @@ const Work = () => {
             ref={headingRef}
             className="text-5xl sm:text-6xl lg:text-8xl xl:text-9xl font-semibold tracking-tighter text-brand-navy"
           >
-            Our Work
+            {t.work.heading}
           </h2>
-          <p className="text-sm font-medium text-zinc-500 mt-4 lg:mt-0">(PROJECT - 03)</p>
+          {/* Info */}
+          <p className="text-sm font-medium text-zinc-500 mt-4 lg:mt-0">{t.work.sectionTag}</p>
         </div>
 
         {/* TOP PROJECTS GRID */}
@@ -120,7 +125,7 @@ const Work = () => {
               >
                 <div className="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                   <Link to="/projects" className="text-white italic text-lg flex items-center gap-2">
-                    View Project <ArrowRight size={16} />
+                    {t.work.viewProject} <ArrowRight size={16} />
                   </Link>
                 </div>
 
@@ -174,18 +179,19 @@ const Work = () => {
                 className="size-full object-cover hover:scale-105 transition-transform duration-700 will-change-transform"
               />
             </div>
-            <h4 data-mini-text className="font-semibold text-lg">Rock Bottom</h4>
-            <p data-mini-text className="text-zinc-500 text-sm">(Graphic Design - 2026)</p>
+            <h4 data-mini-text className="font-semibold text-lg">{t.work.miniTitle}</h4>
+            <p data-mini-text className="text-zinc-500 text-sm">{t.work.miniMeta}</p>
           </div>
 
           <div ref={missionTextRef} className="lg:col-span-8 flex flex-col">
             <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium leading-tight mb-6 lg:mb-8">
-              We born in a shared studio loft with one mission: create work that doesn't blend in
+              {t.work.missionLead}{' '}
+              <span className="font-bold text-blue-900">{t.work.missionAccent}</span>
             </h3>
             <div data-cta className="lg:text-right">
               <Link to="/projects">
                 <button className="inline-flex items-center gap-2 bg-prime-accent hover:bg-[#cbe635] text-zinc-900 px-6 py-3 md:px-8 md:py-4 rounded-full font-semibold transition-colors duration-300 hover:scale-105 hover:shadow-lg">
-                  See All Projects <ArrowRight size={20} />
+                  {t.work.seeAll} <ArrowRight size={20} />
                 </button>
               </Link>
             </div>
@@ -194,7 +200,7 @@ const Work = () => {
 
         {/* AGENCY MILESTONES */}
         <div className="border-t border-zinc-100 pt-16">
-          <p className="text-xs font-bold uppercase tracking-widest mb-12">Agency Milestones</p>
+          <p className="text-xs font-bold uppercase tracking-widest mb-12">{t.work.milestonesTitle}</p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {milestones.map((item, index) => (
               <div key={index} className="flex flex-col">

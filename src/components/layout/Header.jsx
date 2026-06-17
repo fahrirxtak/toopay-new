@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import useTime from "../../hooks/useTime";
 import useScroll from "../../hooks/useScroll";
 import { splitTextToChars } from "../../utils/textUtils";
+import { useLanguage } from "../../i18n/LanguageContext";
+import LanguageToggle from "../../i18n/LanguageToggle";
 
 // Components
 import NavItem from "./header/NavItem";
@@ -15,9 +17,8 @@ import MobileMenu from "./header/MobileMenu";
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-const navItem = ["About", "Service", "Projects", "Team", "Reviews"];
-
 const Header = () => {
+  const { t, lang } = useLanguage();
   const isScrolled = useScroll();
   const currentTime = useTime();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -31,11 +32,10 @@ const Header = () => {
   const connectRef = useRef(null);
   const menuRef = useRef(null);
 
-  // Main Animation
+  // Intro + scroll animation (runs once on mount)
   useEffect(() => {
     if (!headerRef.current) return;
 
-    // 1. Intro Animation
     const tl = gsap.timeline();
     tl.fromTo(
       logoRef.current,
@@ -78,7 +78,15 @@ const Header = () => {
     });
     scrollTl.to(headerRef.current, { y: -5, ease: "power1.out" });
 
-    // --- 2. HOVER ANIMATIONS ---
+    return () => {
+      tl.kill();
+      if (scrollTl.scrollTrigger) scrollTl.scrollTrigger.kill();
+    };
+  }, []);
+
+  // Hover char animation — re-runs on language change so it re-splits the
+  // freshly mounted (keyed) nav/connect text.
+  useEffect(() => {
     const hoverTimelines = new Map();
 
     const applyHoverAnimation = (element) => {
@@ -166,8 +174,6 @@ const Header = () => {
     }
 
     return () => {
-      tl.kill();
-      if (scrollTl.scrollTrigger) scrollTl.scrollTrigger.kill();
       hoverTimelines.forEach((timeline) => timeline.kill());
       hoverTimelines.clear();
 
@@ -191,7 +197,7 @@ const Header = () => {
         delete connectButton._hoverHandlers;
       }
     };
-  }, []);
+  }, [lang]);
 
   // Handle open menu
   const handleOpenMenu = () => {
@@ -230,7 +236,7 @@ const Header = () => {
               className={`text-xs lg:text-lg 2xl:text-xl hidden lg:inline-flex tracking-wide mt-1 ${isScrolled ? "text-zinc-500" : "text-white"
                 }`}
             >
-              • Indonesia, {currentTime} (WIB / GMT+7)
+              • {t.nav.location}, {currentTime} ({t.nav.timezone})
             </p>
           </div>
 
@@ -240,9 +246,9 @@ const Header = () => {
               ref={navRef}
               className="flex items-center gap-3 lg:gap-6 urg text-[10px] lg:text-xs font-bold uppercase tracking-widest"
             >
-              {navItem.map((item, index) => (
-                <div key={index} className="flex items-center">
-                  <NavItem href={`#${item.toLowerCase()}`}>
+              {t.nav.items.map((item, index) => (
+                <div key={`${lang}-${index}`} className="flex items-center">
+                  <NavItem href={`#${t.nav.anchors[index]}`}>
                     {item}
                   </NavItem>
                 </div>
@@ -260,6 +266,7 @@ const Header = () => {
                   }`}
               >
                 <div
+                  key={lang}
                   ref={connectRef}
                   className="relative inline-block overflow-hidden leading-none"
                   style={{ lineHeight: "1" }}
@@ -268,24 +275,28 @@ const Header = () => {
                     className="block text-initial text-white/90 text-[10px] lg:text-xs font-bold uppercase tracking-widest"
                     style={{ lineHeight: "1" }}
                   >
-                    Get Connected
+                    {t.nav.getConnected}
                   </span>
                   <span
                     className="block absolute top-0 left-0 text-hover text-white text-[10px] lg:text-xs font-bold uppercase tracking-widest w-full"
                     style={{ lineHeight: "1" }}
                   >
-                    Get Connected
+                    {t.nav.getConnected}
                   </span>
                 </div>
               </div>
               </Link>
             </div>
+
+            {/* LANGUAGE TOGGLE */}
+            <LanguageToggle />
           </div>
 
           {/* MOBILE Toggle */}
-          <div className="md:hidden cursor-pointer">
+          <div className="md:hidden flex items-center gap-3">
+            <LanguageToggle />
             <button
-              className="p-2"
+              className="p-2 cursor-pointer"
               onClick={handleOpenMenu}
               disabled={isAnimating}
               aria-label="Open menu"

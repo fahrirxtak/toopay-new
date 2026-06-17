@@ -1,13 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { services } from "../assets/data";
+import { services as serviceData } from "../assets/data";
 import { ArrowUp } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { splitWords, revealWords, revealClip, revealFade } from "../utils/gsapReveal";
+import { useLanguage } from "../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Service = () => {
+  const { t } = useLanguage();
+  const services = serviceData.map((s, i) => ({ ...s, ...t.services.items[i] }));
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
@@ -121,16 +124,16 @@ const Service = () => {
             ref={headingRef}
             className="text-5xl md:text-6xl lg:text-9xl font-semibold tracking-tighter bg-gradient-to-r from-blue-700 via-blue-500 to-indigo-400 bg-clip-text text-transparent mb-8"
           >
-            Our Services
+            {t.services.heading}
           </h2>
 
           <div className="flex flex-col lg:flex-row justify-between items-start gap-8">
-            <p className="text-sm font-medium text-zinc-500 mt-2">(SERVICE - 02)</p>
+            <p className="text-sm font-medium text-zinc-500 mt-2">{t.services.sectionTag}</p>
             <h3
               ref={subHeadingRef}
               className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight max-w-2xl"
             >
-              An agency that brings passion into every project.
+              {t.services.subheadingLead} <span className="italic mr-2">{t.services.subheadingAccent}</span> {t.services.subheadingTrail}
             </h3>
           </div>
         </div>
@@ -228,7 +231,7 @@ const Service = () => {
                     key={activeIndex}
                     className="inline-block px-4 py-2 bg-zinc-900/50 backdrop-blur-md border border-white/10 rounded-full text-white text-xs font-semibold tracking-wide"
                   >
-                    {services[activeIndex]?.title || "Our Services"}
+                    {services[activeIndex]?.title || t.services.fallbackLabel}
                   </span>
                 </div>
 

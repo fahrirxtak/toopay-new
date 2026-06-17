@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { splitWords, revealWords, revealClip, revealFade } from '../utils/gsapReveal';
+import { useLanguage } from '../i18n/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const OurTeam = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const card1Ref = useRef(null);
@@ -82,12 +84,12 @@ const OurTeam = () => {
               ref={headingRef}
               className="text-5xl md:text-6xl lg:text-9xl font-semibold tracking-tighter bg-gradient-to-r from-brand-blue via-brand-blue to-brand-navy bg-clip-text text-transparent leading-none"
             >
-              Man Behind The Work
+              {t.team.heading}
             </h2>
           </div>
 
           <div className="lg:max-w-xs pt-4">
-            <p className="text-sm font-medium text-zinc-500 mb-6 text-right lg:text-left">(TEAM - 04)</p>
+            <p className="text-sm font-medium text-zinc-500 mb-6 text-right lg:text-left">{t.team.sectionTag}</p>
 
             <div className="flex gap-2 mb-6">
               {teamMembers.map((member, i) => (
@@ -98,7 +100,7 @@ const OurTeam = () => {
             </div>
 
             <p className="text-zinc-500 text-sm leading-relaxed font-medium">
-              From digital campaigns to full-stack systems, our small team shipped big things. Every single one, intentional.
+              {t.team.intro}
             </p>
           </div>
         </div>
@@ -118,7 +120,7 @@ const OurTeam = () => {
             />
             <div className="absolute bottom-8 left-8">
               <div className="px-4 py-2 bg-zinc-900/40 backdrop-blur-md border border-white/10 rounded-full">
-                <span className="text-xs font-medium text-white">We deliver</span>
+                <span className="text-xs font-medium text-white">{t.team.deliver}</span>
               </div>
             </div>
           </div>
@@ -135,10 +137,10 @@ const OurTeam = () => {
             </div>
             <div>
               <p className="text-[10px] font-bold uppercase tracking-[0.2rem] mb-4 opacity-70">
-                Global Recognition
+                {t.team.recognition}
               </p>
               <h3 className="text-4xl font-medium leading-tight">
-                We thrive to create design that make impact—not just impressions.
+                {t.team.recognitionTitle}
               </h3>
             </div>
           </div>
@@ -148,13 +150,13 @@ const OurTeam = () => {
             ref={card3Ref}
             className="bg-zinc-50 border border-zinc-100 rounded-[2.5rem] p-10 flex flex-col justify-between min-h-[450px]"
           >
-            <p className="text-xs lg:text-sm font-medium text-zinc-400 mb-8">(Rating)</p>
+            <p className="text-xs lg:text-sm font-medium text-zinc-400 mb-8">{t.team.ratingLabel}</p>
             <h3 className="text-8xl font-semibold tracking-tighter bg-gradient-to-r from-blue-700 to-blue-400 bg-clip-text text-transparent">
               <span ref={ratingNumberRef}>0/5</span>
             </h3>
             <div className="pt-8 border-t border-zinc-200 flex flex-col justify-between items-end gap-6">
               <p className="text-zinc-500 font-medium text-sm max-w-[140px]">
-                by 50k+ clients world-wide
+                {t.team.ratingDesc}
               </p>
               <div className="flex items-center gap-2">
                 <Star fill="#00B67A" className="text-[#00B67A] text-xl" />
@@ -170,12 +172,12 @@ const OurTeam = () => {
           className="pt-10 border-t border-zinc-100 flex flex-col md:flex-row justify-between items-center gap-8"
         >
           <p className="text-zinc-500 font-medium max-w-xl text-center md:text-left text-sm lg:text-base">
-            Whether you're launching something new or reshaping what exists, We're here to help you stand out—with clarity, creativity, and edge.
+            {t.team.ctaText}
           </p>
 
           <Link to="/contact?service=Development">
             <button className="bg-prime-accent cursor-pointer hover:bg-zinc-950 hover:text-white text-zinc-950 px-8 py-4 rounded-full font-bold flex items-center gap-3 transition-all duration-300 ease-in-out hover:scale-105 whitespace-nowrap">
-              Start Your Project <ArrowRight size={20} />
+              {t.team.startProject} <ArrowRight size={20} />
             </button>
           </Link>
         </div>

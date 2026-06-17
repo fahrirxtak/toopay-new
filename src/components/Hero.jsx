@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { splitWords } from "../utils/gsapReveal";
+import { useLanguage } from "../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const brandTextRef = useRef(null);
   const subTitleRef = useRef(null);
@@ -141,20 +143,20 @@ const Hero = () => {
             ref={subTitleRef}
             className="uppercase text-prime-white lg:text-sm 2xl:text-base font-bold tracking-[0.3rem] mb-8"
           >
-            AGENCY THAT MOVES CULTURE
+            {t.hero.eyebrow}
           </p>
 
           <h1
             ref={titleRef}
             className="text-4xl lg:text-5xl 2xl:text-7xl max-w-2xl lg:max-w-4xl font-medium tracking-tighter leading-tight"
           >
-            Design studio that not only creates digital products but also experiences.
+            {t.hero.title}
           </h1>
 
           <div ref={actionRef}>
             <Link to="/contact">
               <button className="mt-12 p-3 px-6 flex items-center gap-4 tracking-tight cursor-pointer rounded-full bg-prime-accent text-zinc-950 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl shadow-yellow-500/10">
-                Let's Collaborate
+                {t.hero.cta}
                 <div className="size-10 bg-zinc-950 rounded-full flex items-center justify-center">
                   <ArrowRight size={20} className="text-prime-accent" />
                 </div>
@@ -185,7 +187,7 @@ const Hero = () => {
         </div>
 
         <div className="absolute right-14 -top-40 text-[10px] uppercase font-bold tracking-[0.2rem] opacity-60 hidden lg:block">
-          (scroll for more)
+          {t.hero.scroll}
         </div>
       </div>
     </section>
