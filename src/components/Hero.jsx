@@ -70,6 +70,7 @@ const Hero = () => {
           0.9,
         );
 
+
       if (brandText) {
         tl.fromTo(
           brandText,
