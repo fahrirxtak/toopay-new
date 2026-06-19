@@ -4,31 +4,28 @@ import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { iconPathDrawing, users } from "../assets/data";
+import { splitWords, revealWords, revealClip, revealFade } from "../utils/gsapReveal";
 import { useLanguage } from "../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
   const { t } = useLanguage();
+  const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const card1Ref = useRef(null);
   const card2Ref = useRef(null);
   const card3Ref = useRef(null);
-  const percentNumberRef = useRef(null); // untuk menganimasikan angka
+  const percentNumberRef = useRef(null);
+  const footerRef = useRef(null);
 
   useEffect(() => {
     const heading = headingRef.current;
-    const card1 = card1Ref.current;
-    const card2 = card2Ref.current;
-    const card3 = card3Ref.current;
-    const percentNumber = percentNumberRef.current;
-    const cards = [card1, card2, card3].filter(Boolean);
-
-    // Pastikan semua ref tersedia
+    const cards = [card1Ref.current, card2Ref.current, card3Ref.current].filter(Boolean);
     if (!heading || cards.length === 0) return;
 
-    // Gunakan gsap.context untuk cleanup yang lebih efisien
     const ctx = gsap.context(() => {
+
       // Optimasi: Aktifkan GPU acceleration untuk semua elemen yang dianimasikan
       gsap.set([heading, ...cards], {
         force3D: true,
@@ -59,19 +56,15 @@ const About = () => {
         },
       );
 
-      // Animasi kartu
+
       cards.forEach((card, i) => {
-        if (!card) return;
+        revealClip(card, { trigger: card, delay: i * 0.1, duration: 1.3 });
         gsap.fromTo(
           card,
+          { y: 60 },
           {
-            opacity: 0,
-            y: 60,
-            force3D: true,
-          },
-          {
-            opacity: 1,
             y: 0,
+
             duration: 0.8,
             delay: i * 0.15,
             ease: "power3.out",
@@ -98,39 +91,33 @@ const About = () => {
             if (percentNumber) {
               percentNumber.textContent =
                 Math.round(this.targets()[0].innerText) + "%";
+
             }
           },
-          scrollTrigger: {
-            trigger: card3,
-            start: "top 80%",
-            once: true,
-            refreshPriority: -1,
-            invalidateOnRefresh: false,
-          },
+          scrollTrigger: { trigger: card3Ref.current, start: "top 80%", once: true },
         });
       }
-    }, heading.parentElement || document);
 
-    return () => {
-      ctx.revert();
-      // Cleanup: hapus will-change setelah animasi selesai
-      const allElements = [heading, ...cards].filter(Boolean);
-      allElements.forEach((el) => {
-        if (el) {
-          gsap.set(el, { willChange: "auto" });
-        }
-      });
-    };
+      // Footer reveal
+      if (footerRef.current) {
+        revealFade(footerRef.current.children, {
+          trigger: footerRef.current,
+          stagger: 0.08,
+          duration: 1,
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section id="about" className="py-24 bg-white text-brand-navy">
+    <section ref={sectionRef} id="about" className="py-24 bg-white text-brand-navy">
       <div className="container mx-auto px-6 lg:px-4">
         {/* HEAD */}
         <div className="flex flex-col lg:flex-row justify-between items-center mb-16 gap-12">
           <h2
             ref={headingRef}
-            style={{ willChange: "transform, opacity" }}
             className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.1] max-w-5xl text-black"
           >
             {t.about.headingLead}{" "}
@@ -150,6 +137,7 @@ const About = () => {
           <p className="text-xs font-medium text-zinc-400 uppercase tracking-widest">
             {t.about.sectionTag}
           </p>
+
           <p className="text-zinc-500 font-medium max-w-sm text-sm">
             {t.about.footerText}
           </p>
