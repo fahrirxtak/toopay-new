@@ -33,6 +33,8 @@ export function splitWords(el) {
     mask.style.overflow = "hidden";
     mask.style.verticalAlign = "top";
     mask.style.lineHeight = "inherit";
+    mask.style.padding = "0.3em 0.1em";
+    mask.style.margin = "-0.3em -0.1em";
 
     const word = document.createElement("span");
     word.style.display = "inline-block";
@@ -83,7 +85,7 @@ export function revealWords(targets, opts = {}) {
     config.scrollTrigger = { trigger, start, once };
   }
 
-  return gsap.fromTo(targets, { yPercent: 110, rotate: 4 }, config);
+  return gsap.fromTo(targets, { yPercent: 140, rotate: 4 }, config);
 }
 
 /**

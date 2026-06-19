@@ -12,17 +12,46 @@ gsap.registerPlugin(ScrollTrigger);
 // Display text (title/date/tags/description/client) comes from translations,
 // merged by index. tagKeys must match filter `key`s exactly.
 const projectMeta = [
-  { image: projects[0].image, year: "2024", tagKeys: ["Website Design", "Development"] },
-  { image: projects[1].image, year: "2023", tagKeys: ["Branding", "Social Media"] },
-  { image: "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2070&auto=format&fit=crop", year: "2026", tagKeys: ["Graphic Design"] },
-  { image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop", year: "2025", tagKeys: ["Brand Identity", "UI/UX Design"] },
-  { image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2070&auto=format&fit=crop", year: "2024", tagKeys: ["Development", "UI/UX Design"] },
+  {
+    image: projects[0].image,
+    year: "2024",
+    tagKeys: ["Website Design", "Development"],
+  },
+  {
+    image: projects[1].image,
+    year: "2023",
+    tagKeys: ["Branding", "Social Media"],
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2070&auto=format&fit=crop",
+    year: "2026",
+    tagKeys: ["Graphic Design"],
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop",
+    year: "2025",
+    tagKeys: ["Brand Identity", "UI/UX Design"],
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2070&auto=format&fit=crop",
+    year: "2024",
+    tagKeys: ["Development", "UI/UX Design"],
+  },
 ];
 
 const ProjectsPage = () => {
   const { t } = useLanguage();
-  const milestones = milestoneData.map((m, i) => ({ ...m, ...t.work.milestones[i] }));
-  const allProjects = projectMeta.map((meta, i) => ({ ...meta, ...t.projects.items[i] }));
+  const milestones = milestoneData.map((m, i) => ({
+    ...m,
+    ...t.work.milestones[i],
+  }));
+  const allProjects = projectMeta.map((meta, i) => ({
+    ...meta,
+    ...t.projects.items[i],
+  }));
   const filters = t.projects.filters;
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState(null);
@@ -39,9 +68,10 @@ const ProjectsPage = () => {
   const gridRef = useRef(null);
   const modalRef = useRef(null);
 
-  const filtered = activeFilter === "All"
-    ? allProjects
-    : allProjects.filter((p) => p.tagKeys.includes(activeFilter));
+  const filtered =
+    activeFilter === "All"
+      ? allProjects
+      : allProjects.filter((p) => p.tagKeys.includes(activeFilter));
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -62,54 +92,96 @@ const ProjectsPage = () => {
         .fromTo(
           brandText,
           { opacity: 0, scale: 1.2, filter: "blur(10px)" },
-          { opacity: 1, scale: 1, filter: "blur(0px)", duration: 2, ease: "expo.out" },
-          0.2
+          {
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 2,
+            ease: "expo.out",
+          },
+          0.2,
         )
         .fromTo(
           subTitleRef.current,
           { opacity: 0, y: 30, letterSpacing: "1rem" },
           { opacity: 0.6, y: 0, letterSpacing: "0.3rem", duration: 1.2 },
-          0.5
+          0.5,
         )
         .fromTo(
           titleRef.current,
           { opacity: 0, y: 40, skewY: 2 },
           { opacity: 1, y: 0, skewY: 0, duration: 1.2 },
-          0.7
+          0.7,
         )
         .fromTo(
           statsRef.current,
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 1, ease: "back.out(1.7)" },
-          0.9
+          0.9,
         );
 
       // Parallax scroll on brand text
       if (isMobile) {
-        gsap.fromTo(brandText,
+        gsap.fromTo(
+          brandText,
           { y: 100, force3D: true },
           {
-            y: -150, ease: "none", force3D: true,
-            scrollTrigger: { trigger: section, start: "top bottom", end: "bottom top", scrub: 1.2 },
-          }
+            y: -150,
+            ease: "none",
+            force3D: true,
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          },
         );
       } else {
         gsap.to(brandText, {
-          x: 200, rotate: 2, ease: "none", force3D: true,
-          scrollTrigger: { trigger: section, start: "top top", end: "bottom top", scrub: 1.5 },
+          x: 200,
+          rotate: 2,
+          ease: "none",
+          force3D: true,
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "bottom top",
+            scrub: 1.5,
+          },
         });
       }
 
       // Filter + grid scroll-in
-      gsap.fromTo(filterRef.current,
+      gsap.fromTo(
+        filterRef.current,
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
-          scrollTrigger: { trigger: filterRef.current, start: "top 85%", once: true } }
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: filterRef.current,
+            start: "top 85%",
+            once: true,
+          },
+        },
       );
-      gsap.fromTo(gridRef.current,
+      gsap.fromTo(
+        gridRef.current,
         { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 1, ease: "power3.out",
-          scrollTrigger: { trigger: gridRef.current, start: "top 85%", once: true } }
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: "top 85%",
+            once: true,
+          },
+        },
       );
     }, section);
 
@@ -125,7 +197,7 @@ const ProjectsPage = () => {
     gsap.fromTo(
       gridRef.current.querySelectorAll(".project-card"),
       { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power3.out" }
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.08, ease: "power3.out" },
     );
   }, [activeFilter]);
 
@@ -137,7 +209,10 @@ const ProjectsPage = () => {
   const closeModal = () => {
     if (!modalRef.current) return;
     gsap.to(modalRef.current, {
-      opacity: 0, scale: 0.97, duration: 0.25, ease: "power2.in",
+      opacity: 0,
+      scale: 0.97,
+      duration: 0.25,
+      ease: "power2.in",
       onComplete: () => {
         setSelectedProject(null);
         document.body.style.overflow = "";
@@ -147,22 +222,24 @@ const ProjectsPage = () => {
 
   useEffect(() => {
     if (selectedProject && modalRef.current) {
-      gsap.fromTo(modalRef.current,
+      gsap.fromTo(
+        modalRef.current,
         { opacity: 0, scale: 0.97 },
-        { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }
+        { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" },
       );
     }
   }, [selectedProject]);
 
   useEffect(() => {
-    const handler = (e) => { if (e.key === "Escape") closeModal(); };
+    const handler = (e) => {
+      if (e.key === "Escape") closeModal();
+    };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [selectedProject]);
 
   return (
     <div className="min-h-screen bg-white text-brand-navy">
-
       {/* ── HERO ── */}
       <section
         ref={sectionRef}
@@ -208,10 +285,15 @@ const ProjectsPage = () => {
             </h1>
 
             {/* Milestones strip */}
-            <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-10 border-t border-white/10">
+            <div
+              ref={statsRef}
+              className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-10 border-t border-white/10"
+            >
               {milestones.map((m) => (
                 <div key={m.label}>
-                  <p className="text-3xl md:text-4xl font-bold tracking-tighter">{m.value}</p>
+                  <p className="text-3xl md:text-4xl font-bold tracking-tighter">
+                    {m.value}
+                  </p>
                   <p className="text-white/50 text-sm mt-1">{m.label}</p>
                 </div>
               ))}
@@ -250,11 +332,12 @@ const ProjectsPage = () => {
       {/* ── FILTER + GRID ── */}
       <section className="py-24 px-6 lg:px-4">
         <div className="container mx-auto">
-
           {/* Filters */}
           <div ref={filterRef} className="flex flex-wrap gap-3 mb-16 opacity-0">
             {filters.map((f) => (
-              <button key={f.key} onClick={() => setActiveFilter(f.key)}
+              <button
+                key={f.key}
+                onClick={() => setActiveFilter(f.key)}
                 className={`px-5 py-2.5 rounded-full border text-sm font-semibold transition-all ${
                   activeFilter === f.key
                     ? "bg-brand-navy text-white border-brand-navy"
@@ -267,26 +350,42 @@ const ProjectsPage = () => {
           </div>
 
           {/* Grid */}
-          <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-0">
+          <div
+            ref={gridRef}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-0"
+          >
             {filtered.map((project, i) => (
-              <div key={i} className="project-card group cursor-pointer" onClick={() => openModal(project)}>
+              <div
+                key={i}
+                className="project-card group cursor-pointer"
+                onClick={() => openModal(project)}
+              >
                 <div className="aspect-[4/3] bg-zinc-100 rounded-3xl overflow-hidden mb-5 relative">
                   <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                     <span className="text-white font-semibold tracking-wide flex items-center gap-2">
                       {t.projects.viewProject} <ArrowRight size={16} />
                     </span>
                   </div>
-                  <img src={project.image} alt={project.title} loading="lazy"
-                    className="size-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                    className="size-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
                 </div>
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
+                    <h3 className="text-xl font-semibold mb-1">
+                      {project.title}
+                    </h3>
                     <p className="text-zinc-400 text-sm">{project.date}</p>
                   </div>
                   <div className="flex flex-wrap gap-2 justify-end">
                     {project.tags.map((tag, j) => (
-                      <span key={j} className="text-xs px-3 py-1 rounded-full border border-zinc-200 text-zinc-500 whitespace-nowrap">
+                      <span
+                        key={j}
+                        className="text-xs px-3 py-1 rounded-full border border-zinc-200 text-zinc-500 whitespace-nowrap"
+                      >
                         {tag}
                       </span>
                     ))}
@@ -304,44 +403,73 @@ const ProjectsPage = () => {
           className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/70 backdrop-blur-sm"
           onClick={(e) => e.target === e.currentTarget && closeModal()}
         >
-          <div ref={modalRef} className="bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+          <div
+            ref={modalRef}
+            className="bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto"
+          >
             <div className="aspect-video w-full overflow-hidden rounded-t-3xl">
-              <img src={selectedProject.image} alt={selectedProject.title} className="size-full object-cover" />
+              <img
+                src={selectedProject.image}
+                alt={selectedProject.title}
+                className="size-full object-cover"
+              />
             </div>
             <div className="p-8 md:p-12">
               <div className="flex items-start justify-between gap-4 mb-8">
                 <div>
-                  <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-2">{selectedProject.title}</h2>
-                  <p className="text-zinc-400 text-sm">{selectedProject.date}</p>
+                  <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-2">
+                    {selectedProject.title}
+                  </h2>
+                  <p className="text-zinc-400 text-sm">
+                    {selectedProject.date}
+                  </p>
                 </div>
-                <button onClick={closeModal}
+                <button
+                  onClick={closeModal}
                   className="size-10 rounded-full border border-zinc-200 flex items-center justify-center hover:bg-zinc-50 transition-colors shrink-0"
-                  aria-label="Close">
+                  aria-label="Close"
+                >
                   <X size={18} />
                 </button>
               </div>
 
-              <p className="text-zinc-600 text-lg leading-relaxed mb-8">{selectedProject.description}</p>
+              <p className="text-zinc-600 text-lg leading-relaxed mb-8">
+                {selectedProject.description}
+              </p>
 
               <div className="grid grid-cols-2 gap-6 mb-8 pt-8 border-t border-zinc-100">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">{t.projects.clientLabel}</p>
-                  <p className="font-semibold">{selectedProject.client || t.projects.confidential}</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">
+                    {t.projects.clientLabel}
+                  </p>
+                  <p className="font-semibold">
+                    {selectedProject.client || t.projects.confidential}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">{t.projects.yearLabel}</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">
+                    {t.projects.yearLabel}
+                  </p>
                   <p className="font-semibold">{selectedProject.year || "—"}</p>
                 </div>
               </div>
 
               <div className="flex flex-wrap gap-2 mb-10">
                 {selectedProject.tags.map((tag, i) => (
-                  <span key={i} className="text-xs px-4 py-2 rounded-full border border-zinc-200 text-zinc-600 font-medium">{tag}</span>
+                  <span
+                    key={i}
+                    className="text-xs px-4 py-2 rounded-full border border-zinc-200 text-zinc-600 font-medium"
+                  >
+                    {tag}
+                  </span>
                 ))}
               </div>
 
-              <Link to="/contact" onClick={closeModal}
-                className="inline-flex items-center gap-3 px-7 py-3.5 bg-brand-navy text-white rounded-full font-bold hover:bg-blue-700 transition-all">
+              <Link
+                to="/contact"
+                onClick={closeModal}
+                className="inline-flex items-center gap-3 px-7 py-3.5 bg-brand-navy text-white rounded-full font-bold hover:bg-blue-700 transition-all"
+              >
                 {t.projects.similarProject} <ArrowRight size={18} />
               </Link>
             </div>

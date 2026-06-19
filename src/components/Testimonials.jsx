@@ -150,7 +150,7 @@ const Testimonials = () => {
             <p className="text-sm font-medium text-zinc-500 mb-4">{t.testimonials.sectionTag}</p>
             <h2
               ref={headingRef}
-              className="text-5xl md:text-6xl lg:text-9xl font-semibold tracking-tighter bg-gradient-to-r from-brand-blue to-brand-navy bg-clip-text text-transparent"
+              className="text-5xl md:text-6xl lg:text-9xl font-semibold tracking-tighter text-blue-600"
             >
               {t.testimonials.heading}
             </h2>

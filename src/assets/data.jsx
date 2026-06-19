@@ -62,9 +62,9 @@ const projects = [
 
 // `label` lives in translations.js under `work.milestones`, merged by index.
 const milestones = [
-  { value: "15+", numericValue: 15 },
-  { value: "50+", numericValue: 50 },
-  { value: "50+", numericValue: 50 },
+  { value: "3+", numericValue: 3 },
+  { value: "40+", numericValue: 40 },
+  { value: "40+", numericValue: 40 },
   { value: "100%", numericValue: 100 },
 ];
 
