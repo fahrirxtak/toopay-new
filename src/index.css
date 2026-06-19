@@ -41,8 +41,12 @@ body {
   font-family: "helvetica", "Plus Jakarta Sans", "inter", "poppins", sans-serif;
 }
 
+h2 {
+    font-family: "space";
+    color: #0973dd;
+}
+
 h1,
-h2,
 h3,
 h4 {
   font-family: "space";
