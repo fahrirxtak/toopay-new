@@ -124,9 +124,9 @@ const Work = () => {
                 style={{ clipPath: "inset(100% 0% 0% 0%)" }}
               >
                 <div className="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                  <Link to="/projects" className="text-white italic text-lg flex items-center gap-2">
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-white italic text-lg flex items-center gap-2">
                     {t.work.viewProject} <ArrowRight size={16} />
-                  </Link>
+                  </a>
                 </div>
 
                 <img

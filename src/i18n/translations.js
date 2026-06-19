@@ -98,12 +98,12 @@ export const translations = {
       miniMeta: "(Custom Website - 2026)",
       projects: [
         {
-          title: "Chat Genius",
+          title: "Growthica",
           date: "(2024 — Masih berjalan)",
           tags: ["Custom Website", "Pengembangan"],
         },
         {
-          title: "Field Type",
+          title: "LCYA",
           date: "(2023 — Jan 2025)",
           tags: ["Company Profile", "Desain"],
         },
@@ -260,7 +260,7 @@ export const translations = {
       similarProject: "Buat Website Serupa",
       items: [
         {
-          title: "Chat Genius",
+          title: "Growthica",
           date: "(2024 — Masih berjalan)",
           tags: ["Custom Website", "Pengembangan"],
           description:
@@ -268,7 +268,7 @@ export const translations = {
           client: "Chat Genius Ltd.",
         },
         {
-          title: "Field Type",
+          title: "Bridge of Hope",
           date: "(2023 — Jan 2025)",
           tags: ["Company Profile", "Desain"],
           description:
@@ -276,7 +276,7 @@ export const translations = {
           client: "Field Type Studio",
         },
         {
-          title: "Rock Bottom",
+          title: "WasteJourney",
           date: "(2026 — Berlangsung)",
           tags: ["Landing Page"],
           description:
@@ -284,7 +284,7 @@ export const translations = {
           client: "Independen",
         },
         {
-          title: "Neon Pulse",
+          title: "Routify",
           date: "(2025 — Mar 2025)",
           tags: ["Custom Website", "Desain UI/UX"],
           description:
@@ -292,7 +292,7 @@ export const translations = {
           client: "Neon Pulse Inc.",
         },
         {
-          title: "Verdant",
+          title: "Kertapati",
           date: "(2024 — Des 2024)",
           tags: ["Custom Website", "Desain UI/UX"],
           description:
@@ -404,12 +404,12 @@ export const translations = {
       miniMeta: "(Custom Website - 2026)",
       projects: [
         {
-          title: "Chat Genius",
+          title: "Growthica",
           date: "(2024 — Still ongoing)",
           tags: ["Custom Website", "Development"],
         },
         {
-          title: "Field Type",
+          title: "LCYA",
           date: "(2023 — Jan 2025)",
           tags: ["Company Profile", "Design"],
         },
@@ -565,7 +565,7 @@ export const translations = {
       similarProject: "Build a Similar Website",
       items: [
         {
-          title: "Chat Genius",
+          title: "Growthica",
           date: "(2024 — Still ongoing)",
           tags: ["Custom Website", "Development"],
           description:
@@ -573,7 +573,7 @@ export const translations = {
           client: "Chat Genius Ltd.",
         },
         {
-          title: "Field Type",
+          title: "Bridge of Hope",
           date: "(2023 — Jan 2025)",
           tags: ["Company Profile", "Design"],
           description:
@@ -581,7 +581,7 @@ export const translations = {
           client: "Field Type Studio",
         },
         {
-          title: "Rock Bottom",
+          title: "WasteJourney",
           date: "(2026 — Ongoing)",
           tags: ["Landing Page"],
           description:
@@ -589,7 +589,7 @@ export const translations = {
           client: "Independent",
         },
         {
-          title: "Neon Pulse",
+          title: "Routify",
           date: "(2025 — Mar 2025)",
           tags: ["Custom Website", "UI/UX Design"],
           description:
@@ -597,7 +597,7 @@ export const translations = {
           client: "Neon Pulse Inc.",
         },
         {
-          title: "Verdant",
+          title: "Kertapati",
           date: "(2024 — Dec 2024)",
           tags: ["Custom Website", "UI/UX Design"],
           description:

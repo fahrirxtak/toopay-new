@@ -42,7 +42,7 @@ const brands = [
 ];
 
 const miniPlaceHolderImage =
-  "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2070&auto=format&fit=crop";
+  "/images/projects/project-3.webp";
 
 const ourTeamImagePlaceHolder =
   "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop";
@@ -50,14 +50,8 @@ const ourTeamImagePlaceHolder =
 // Structural data only — translatable text (title/date/tags) lives in
 // src/i18n/translations.js under `work.projects`, merged by index.
 const projects = [
-  {
-    image:
-      "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?q=80&w=2070&auto=format&fit=crop",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=2070&auto=format&fit=crop",
-  },
+  { image: "/images/projects/project-1.webp", link: "https://growthica.vercel.app/" },
+  { image: "/images/projects/project-9.webp", link: "https://lyca-psi.vercel.app/" },
 ];
 
 // `label` lives in translations.js under `work.milestones`, merged by index.

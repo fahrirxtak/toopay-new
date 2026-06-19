@@ -3,7 +3,7 @@ import { ArrowRight, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { projects, milestones as milestoneData } from "../assets/data";
+import { milestones as milestoneData } from "../assets/data";
 import { useLanguage } from "../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,11 +12,11 @@ gsap.registerPlugin(ScrollTrigger);
 // Display text (title/date/tags/description/client) comes from translations,
 // merged by index. tagKeys must match filter `key`s exactly.
 const projectMeta = [
-  { image: projects[0].image, year: "2024", tagKeys: ["Website Design", "Development"] },
-  { image: projects[1].image, year: "2023", tagKeys: ["Branding", "Social Media"] },
-  { image: "https://images.unsplash.com/photo-1470723710355-95304d8aece4?q=80&w=2070&auto=format&fit=crop", year: "2026", tagKeys: ["Graphic Design"] },
-  { image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop", year: "2025", tagKeys: ["Brand Identity", "UI/UX Design"] },
-  { image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2070&auto=format&fit=crop", year: "2024", tagKeys: ["Development", "UI/UX Design"] },
+  { image: "/images/projects/project-1.webp", year: "2024", tagKeys: ["Website Design", "Development"] },
+  { image: "/images/projects/project-2.webp", year: "2023", tagKeys: ["Branding", "Social Media"] },
+  { image: "/images/projects/project-3.webp", year: "2026", tagKeys: ["Graphic Design"] },
+  { image: "/images/projects/project-4.webp", year: "2025", tagKeys: ["Brand Identity", "UI/UX Design"] },
+  { image: "/images/projects/project-5.webp", year: "2024", tagKeys: ["Development", "UI/UX Design"] },
 ];
 
 const ProjectsPage = () => {
