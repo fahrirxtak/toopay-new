@@ -1,9 +1,14 @@
 const users = ["/images/user-1.png", "/images/user-2.png", "images/user-3.png"];
 
 const teamMembers = [
-  { name: "Julian Smith", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2070&auto=format&fit=crop" },
-  { name: "Sarah Jenkins", img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=2070&auto=format&fit=crop" },
-  { name: "Marcus Wright", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=2070&auto=format&fit=crop" },
+  {
+    name: "Taufan Nurrizkie",
+    img: "/images/Taufan.webp",
+  },
+  {
+    name: "Fahkri Nugraha",
+    img: "/images/Fahri.webp",
+  },
 ];
 
 // Structural data only — translatable text (title/description/tags) lives in
@@ -11,15 +16,18 @@ const teamMembers = [
 const services = [
   {
     id: "01.",
-    image: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2070&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2070&auto=format&fit=crop",
   },
   {
     id: "02.",
-    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2070&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2070&auto=format&fit=crop",
   },
   {
     id: "03.",
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop",
   },
 ];
 
@@ -179,4 +187,3 @@ export {
   iconPathDrawing,
   starIconPathDrawing,
 };
-

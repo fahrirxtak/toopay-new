@@ -38,6 +38,38 @@ const Hero = () => {
 
       tl.fromTo(section, { opacity: 0 }, { opacity: 1, duration: 1 });
 
+
+      tl.fromTo(section, { opacity: 0 }, { opacity: 1, duration: 1.5 })
+        .fromTo(
+          brandText,
+          { opacity: 0, scale: 1.2, filter: "blur(10px)" },
+          {
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 2,
+            ease: "expo.out",
+          },
+          0.2,
+        )
+        .fromTo(
+          subTitleRef.current,
+          { opacity: 0, y: 30, letterSpacing: "1rem" },
+          { opacity: 0.6, y: 0, letterSpacing: "0.3rem", duration: 1.2 },
+          0.5,
+        )
+        .fromTo(
+          titleRef.current,
+          { opacity: 0, y: 40, skewY: 2 },
+          { opacity: 1, y: 0, skewY: 0, duration: 1.2 },
+          0.7,
+        )
+        .fromTo(
+          actionRef.current,
+          { opacity: 0, y: 20, scale: 0.95 },
+          { opacity: 1, y: 0, scale: 1, duration: 1, ease: "back.out(1.7)" },
+          0.9,
+
       if (brandText) {
         tl.fromTo(
           brandText,
@@ -71,6 +103,7 @@ const Hero = () => {
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, duration: 1 },
           0.9
+
         );
       }
 
@@ -88,7 +121,7 @@ const Hero = () => {
               end: "bottom top",
               scrub: 1.2,
             },
-          }
+          },
         );
       } else {
         gsap.to(brandText, {
@@ -117,7 +150,7 @@ const Hero = () => {
       {/* SQUIRREL MASCOT WATERMARK */}
       <div
         style={{
-          backgroundImage: "url(/images/squirrel_mascot.png)",
+          backgroundImage: "url(/images/squirrel_mascot.webp)",
           backgroundSize: "contain",
           backgroundPosition: "center right",
           backgroundRepeat: "no-repeat",
@@ -128,7 +161,7 @@ const Hero = () => {
       {/* GRAIN TEXTURE */}
       <div
         style={{
-          backgroundImage: "url(/images/grain.jpg)",
+          backgroundImage: "url(/images/grain.webp)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           mixBlendMode: "overlay",
