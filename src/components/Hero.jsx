@@ -30,34 +30,36 @@ const Hero = () => {
       // --- 1. ENTRY ANIMATION (CLEAN & MODERN) ---
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-      tl.fromTo(
-        section,
-        { opacity: 0 },
-        { opacity: 1, duration: 1.5 }
-      )
+      tl.fromTo(section, { opacity: 0 }, { opacity: 1, duration: 1.5 })
         .fromTo(
           brandText,
           { opacity: 0, scale: 1.2, filter: "blur(10px)" },
-          { opacity: 1, scale: 1, filter: "blur(0px)", duration: 2, ease: "expo.out" },
-          0.2
+          {
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 2,
+            ease: "expo.out",
+          },
+          0.2,
         )
         .fromTo(
           subTitleRef.current,
           { opacity: 0, y: 30, letterSpacing: "1rem" },
           { opacity: 0.6, y: 0, letterSpacing: "0.3rem", duration: 1.2 },
-          0.5
+          0.5,
         )
         .fromTo(
           titleRef.current,
           { opacity: 0, y: 40, skewY: 2 },
           { opacity: 1, y: 0, skewY: 0, duration: 1.2 },
-          0.7
+          0.7,
         )
         .fromTo(
           actionRef.current,
           { opacity: 0, y: 20, scale: 0.95 },
           { opacity: 1, y: 0, scale: 1, duration: 1, ease: "back.out(1.7)" },
-          0.9
+          0.9,
         );
 
       // --- 2. SCROLL ANIMATION ---
@@ -75,7 +77,7 @@ const Hero = () => {
               end: "bottom top",
               scrub: 1.2,
             },
-          }
+          },
         );
       } else {
         gsap.to(brandText, {
@@ -110,7 +112,7 @@ const Hero = () => {
       {/* SQUIRREL MASCOT WATERMARK */}
       <div
         style={{
-          backgroundImage: "url(/images/squirrel_mascot.png)",
+          backgroundImage: "url(/images/squirrel_mascot.webp)",
           backgroundSize: "contain",
           backgroundPosition: "center right",
           backgroundRepeat: "no-repeat",
@@ -121,7 +123,7 @@ const Hero = () => {
       {/* GRAIN TEXTURE */}
       <div
         style={{
-          backgroundImage: "url(/images/grain.jpg)",
+          backgroundImage: "url(/images/grain.webp)",
           backgroundSize: "cover",
           backgroundPosition: "center",
           mixBlendMode: "overlay",
@@ -146,16 +148,16 @@ const Hero = () => {
             {t.hero.title}
           </h1>
 
-            <div ref={actionRef}>
-                <Link to="/contact">
-                  <button className="mt-12 p-3 px-6 flex items-center gap-4 tracking-tight cursor-pointer rounded-full bg-prime-accent text-zinc-950 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl shadow-yellow-500/10">
-                    {t.hero.cta}
-                    <div className="size-10 bg-zinc-950 rounded-full flex items-center justify-center">
-                      <ArrowRight size={20} className="text-prime-accent" />
-                    </div>
-                  </button>
-                </Link>
-            </div>
+          <div ref={actionRef}>
+            <Link to="/contact">
+              <button className="mt-12 p-3 px-6 flex items-center gap-4 tracking-tight cursor-pointer rounded-full bg-prime-accent text-zinc-950 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 shadow-2xl shadow-yellow-500/10">
+                {t.hero.cta}
+                <div className="size-10 bg-zinc-950 rounded-full flex items-center justify-center">
+                  <ArrowRight size={20} className="text-prime-accent" />
+                </div>
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
 
