@@ -68,7 +68,7 @@ const Hero = () => {
           actionRef.current,
           { opacity: 0, y: 20, scale: 0.95 },
           { opacity: 1, y: 0, scale: 1, duration: 1, ease: "back.out(1.7)" },
-          0.9,
+          0.9);
 
       if (brandText) {
         tl.fromTo(
