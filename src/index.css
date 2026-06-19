@@ -9,10 +9,10 @@
 @variant dark (&:where(.dark, .dark *));
 
 /* on-special-cases */
-/* body {
-  background: #1b1b1b;
+body {
+  color: #0D2B4A;
   scroll-behavior: smooth;
-} */
+}
 
 /* FONTS */
 
@@ -46,6 +46,7 @@ h2,
 h3,
 h4 {
   font-family: "space";
+  color: inherit;
 }
 
 .playfair-display {
