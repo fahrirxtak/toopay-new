@@ -38,7 +38,6 @@ const Hero = () => {
 
       tl.fromTo(section, { opacity: 0 }, { opacity: 1, duration: 1 });
 
-
       tl.fromTo(section, { opacity: 0 }, { opacity: 1, duration: 1.5 })
         .fromTo(
           brandText,
@@ -68,14 +67,16 @@ const Hero = () => {
           actionRef.current,
           { opacity: 0, y: 20, scale: 0.95 },
           { opacity: 1, y: 0, scale: 1, duration: 1, ease: "back.out(1.7)" },
-          0.9);
+          0.9,
+        );
+
 
       if (brandText) {
         tl.fromTo(
           brandText,
           { opacity: 0, scale: 1.15, filter: "blur(14px)" },
           { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.8 },
-          0.1
+          0.1,
         );
       }
 
@@ -84,7 +85,7 @@ const Hero = () => {
           subWords,
           { yPercent: 110 },
           { yPercent: 0, duration: 1, stagger: 0.04 },
-          0.4
+          0.4,
         );
       }
 
@@ -93,7 +94,7 @@ const Hero = () => {
           titleWords,
           { yPercent: 110, rotate: 4 },
           { yPercent: 0, rotate: 0, duration: 1.2, stagger: 0.05 },
-          0.55
+          0.55,
         );
       }
 
@@ -102,8 +103,7 @@ const Hero = () => {
           actionRef.current,
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, duration: 1 },
-          0.9
-
+          0.9,
         );
       }
 
