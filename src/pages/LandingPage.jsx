@@ -8,6 +8,7 @@ import OurTeam from "../components/OurTeam";
 import Testimonials from "../components/Testimonials";
 import { MessageCircle } from "lucide-react";
 import { useEffect } from "react";
+import FAQ from "@/components/FAQ";
 
 const LandingPage = () => {
   useEffect(() => {
@@ -23,6 +24,7 @@ const LandingPage = () => {
       <Work />
       <OurTeam />
       <Testimonials />
+      <FAQ />
 
       {/* Sticky WhatsApp Button */}
       <a

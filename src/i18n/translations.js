@@ -99,7 +99,7 @@ export const translations = {
           period: "project",
           features: [
             "1 halaman website",
-            "Waktu pengerjaan 3-5 hari",
+            "Waktu pengerjaan 1-2 hari",
             "Domain gratis (.com 1 tahun)",
             "Hosting gratis (1 tahun)",
             "Email bisnis gratis",
@@ -107,7 +107,7 @@ export const translations = {
             "SEO dasar",
             "Editing gambar dasar",
           ],
-          setupFee: "Rp 500.000",
+          setupFee: "Gratis",
         },
         {
           name: "Company Profile",
@@ -116,7 +116,7 @@ export const translations = {
           period: "project",
           features: [
             "3-5 halaman website",
-            "Waktu pengerjaan 7-10 hari",
+            "Waktu pengerjaan 3-4 hari",
             "Domain gratis (.com 1 tahun)",
             "Hosting gratis (1 tahun)",
             "Email bisnis gratis",
@@ -124,7 +124,7 @@ export const translations = {
             "SEO dasar",
             "Editing gambar dasar",
           ],
-          setupFee: "Rp 1.000.000",
+          setupFee: "Gratis",
         },
         {
           name: "Custom Website",
@@ -133,7 +133,7 @@ export const translations = {
           period: "project",
           features: [
             "Halaman tanpa batas",
-            "Waktu pengerjaan 14-21 hari",
+            "Waktu pengerjaan 6-7 hari",
             "Domain gratis (.com 1 tahun)",
             "Hosting gratis (1 tahun)",
             "Email bisnis gratis",
@@ -141,7 +141,7 @@ export const translations = {
             "SEO dasar",
             "Editing gambar dasar",
           ],
-          setupFee: "Rp 2.000.000",
+          setupFee: "Gratis",
         },
       ],
     },
@@ -154,7 +154,7 @@ export const translations = {
       missionAccent: "membantu bisnis apapun tampil profesional di internet",
       seeAll: "Lihat Semua Proyek",
       milestonesTitle: "Pencapaian Kami",
-      miniTitle: "Rock Bottom",
+      miniTitle: "Wajan Nusantara",
       miniMeta: "(Custom Website - 2026)",
       projects: [
         {
@@ -163,9 +163,9 @@ export const translations = {
           tags: ["Landing Page", "Pertanian"],
         },
         {
-          title: "Bridge of Hope",
-          date: "(2023 — Jan 2025)",
-          tags: ["Custom Website", "Donasi"],
+          title: "Lyca",
+          date: "(2025 — Jan 2025)",
+          tags: ["Custom Website", "Company Profile"],
         },
       ],
       milestones: [
@@ -215,6 +215,38 @@ export const translations = {
             "Custom website yang mereka bangun persis sesuai kebutuhan kami. Prosesnya jelas, tepat waktu, dan tidak ada biaya tersembunyi.",
           role: "Founder Startup Lokal",
           statLabel: "Kepuasan Proyek",
+        },
+      ],
+    },
+
+    faq: {
+      sectionTag: "(FAQ - 06)",
+      title: "Pertanyaan yang Sering Diajukan",
+      items: [
+        {
+          question: "Berapa lama waktu pengerjaan website?",
+          answer:
+            "Waktu pengerjaan bervariasi tergantung jenis website: Landing Page 3-5 hari, Company Profile 7-10 hari, dan Custom Website 14-21 hari. Kami akan memberikan estimasi waktu yang lebih spesifik setelah diskusi awal.",
+        },
+        {
+          question: "Apakah harga sudah termasuk domain dan hosting?",
+          answer:
+            "Ya, semua paket kami sudah termasuk domain gratis (.com) selama 1 tahun dan hosting gratis selama 1 tahun. Setelah masa gratis berakhir, Anda bisa memperpanjang dengan harga standar.",
+        },
+        {
+          question: "Apakah ada biaya maintenance?",
+          answer:
+            "Kami memberikan gratis update/edit halaman yang sudah ada selama 3 bulan. Setelah itu, jika Anda butuh maintenance atau update tambahan, kami bisa diskusikan paket maintenance yang sesuai kebutuhan.",
+        },
+        {
+          question: "Apakah saya bisa request revisi?",
+          answer:
+            "Tentu! Kami memberikan kesempatan revisi untuk memastikan hasil sesuai dengan keinginan Anda. Jumlah revisi tergantung dari paket yang Anda pilih dan akan dijelaskan di awal proyek.",
+        },
+        {
+          question: "Bagaimana proses pembayarannya?",
+          answer:
+            "Pembayaran dilakukan dengan sistem DP 50% di awal proyek, dan 50% sisanya setelah website selesai dan Anda sudah approve. Kami akan kirim invoice yang jelas untuk setiap pembayaran.",
         },
       ],
     },
@@ -281,6 +313,7 @@ export const translations = {
       fieldEmailPlaceholder: "kamu@perusahaan.com",
       fieldCompany: "Nama Bisnis / Usaha",
       fieldCompanyPlaceholder: "Nama bisnis atau brandmu",
+      fieldBudget: "Anggaran",
       fieldMessage: "Ceritakan kebutuhan websitemu",
       fieldMessagePlaceholder:
         "Contoh: Saya butuh landing page untuk produk skincare saya, target selesai 2 minggu lagi...",
@@ -525,11 +558,11 @@ export const translations = {
         {
           name: "Landing Page",
           description: "For product promotion or campaigns",
-          price: "Rp 1.500.000",
+          price: "$99",
           period: "project",
           features: [
             "1 website page",
-            "Working time 3-5 days",
+            "Working time 1-2 days",
             "Free domain (.com 1 year)",
             "Free hosting (1 year)",
             "Free business email",
@@ -537,16 +570,16 @@ export const translations = {
             "Basic SEO",
             "Basic image editing",
           ],
-          setupFee: "Rp 500.000",
+          setupFee: "Free",
         },
         {
           name: "Company Profile",
           description: "For professional business profile",
-          price: "Rp 3.500.000",
+          price: "$199",
           period: "project",
           features: [
             "3-5 website pages",
-            "Working time 7-10 days",
+            "Working time 3-4 days",
             "Free domain (.com 1 year)",
             "Free hosting (1 year)",
             "Free business email",
@@ -554,16 +587,16 @@ export const translations = {
             "Basic SEO",
             "Basic image editing",
           ],
-          setupFee: "Rp 1.000.000",
+          setupFee: "Free",
         },
         {
           name: "Custom Website",
           description: "For special and complex features",
-          price: "Rp 7.000.000",
+          price: "$399",
           period: "project",
           features: [
             "Unlimited pages",
-            "Working time 14-21 days",
+            "Working time 6-7 days",
             "Free domain (.com 1 year)",
             "Free hosting (1 year)",
             "Free business email",
@@ -571,7 +604,7 @@ export const translations = {
             "Basic SEO",
             "Basic image editing",
           ],
-          setupFee: "Rp 2.000.000",
+          setupFee: "Free",
         },
       ],
     },
@@ -584,7 +617,7 @@ export const translations = {
       missionAccent: "help any business look professional online",
       seeAll: "See All Projects",
       milestonesTitle: "Our Milestones",
-      miniTitle: "Rock Bottom",
+      miniTitle: "Wajan Nusantara",
       miniMeta: "(Custom Website - 2026)",
       projects: [
         {
@@ -593,8 +626,8 @@ export const translations = {
           tags: ["Landing Page", "Agriculture"],
         },
         {
-          title: "Bridge of Hope",
-          date: "(2023 — Jan 2025)",
+          title: "Lyca",
+          date: "(2025 — Jan 2025)",
           tags: ["Custom Website", "Donation"],
         },
       ],
@@ -645,6 +678,38 @@ export const translations = {
             "The custom website they built fit our needs exactly. Clear process, on time, and no hidden costs.",
           role: "Local Startup Founder",
           statLabel: "Project Satisfaction",
+        },
+      ],
+    },
+
+    faq: {
+      sectionTag: "(FAQ - 06)",
+      title: "Frequently Asked Questions",
+      items: [
+        {
+          question: "How long does it take to build a website?",
+          answer:
+            "Timeline varies by website type: Landing Page 3-5 days, Company Profile 7-10 days, and Custom Website 14-21 days. We'll provide a more specific estimate after our initial discussion.",
+        },
+        {
+          question: "Does the price include domain and hosting?",
+          answer:
+            "Yes, all our packages include free domain (.com) for 1 year and free hosting for 1 year. After the free period ends, you can renew at standard rates.",
+        },
+        {
+          question: "Is there a maintenance fee?",
+          answer:
+            "We provide free updates/edits to existing pages for 3 months. After that, if you need maintenance or additional updates, we can discuss a maintenance package that fits your needs.",
+        },
+        {
+          question: "Can I request revisions?",
+          answer:
+            "Absolutely! We provide revision opportunities to ensure the result matches your vision. The number of revisions depends on your chosen package and will be explained at the project start.",
+        },
+        {
+          question: "How does the payment process work?",
+          answer:
+            "Payment is done with a 50% down payment at the project start, and the remaining 50% after the website is complete and you've approved it. We'll send clear invoices for each payment.",
         },
       ],
     },
@@ -711,6 +776,7 @@ export const translations = {
       fieldEmailPlaceholder: "you@company.com",
       fieldCompany: "Business / Brand Name",
       fieldCompanyPlaceholder: "Your business or brand name",
+      fieldBudget: "Budget",
       fieldMessage: "Tell us about your website needs",
       fieldMessagePlaceholder:
         "Example: I need a landing page for my skincare product, aiming to finish in 2 weeks...",

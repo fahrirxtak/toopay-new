@@ -147,13 +147,6 @@ const OurTeam = () => {
               alt="Toopay Agency Creative Team Member"
               className="size-full object-cover"
             />
-            <div className="absolute bottom-8 left-8">
-              <div className="px-4 py-2 bg-zinc-900/40 backdrop-blur-md border border-white/10 rounded-full">
-                <span className="text-xs font-medium text-white">
-                  {t.team.deliver}
-                </span>
-              </div>
-            </div>
           </div>
 
           {/* CARD 2 */}

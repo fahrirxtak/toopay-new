@@ -70,21 +70,16 @@ const milestones = [
 const testimonials = [
   {
     author: "Guy Hawkins",
-    company: "Webflow",
-    companyInitial: "W",
     avatar: "/images/user-1.png",
     stat: "+80%",
   },
   {
     author: "Sarah Jenkins",
-    company: "Spotify",
-    companyInitial: "S",
     avatar: "/images/user-2.png",
     stat: "+65%",
   },
   {
     author: "Marcus Wright",
-    company: "Coinbase",
     companyInitial: "C",
     avatar: "/images/user-3.png",
     stat: "+92%",
@@ -116,6 +111,60 @@ const logoLoopTech = [
     name: "Tailwind CSS",
     href: "https://tailwindcss.com",
     icon: "tailwind",
+  },
+  {
+    type: "icon",
+    name: "HTML5",
+    href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+    icon: "html",
+  },
+  {
+    type: "icon",
+    name: "CSS3",
+    href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+    icon: "css",
+  },
+  {
+    type: "icon",
+    name: "JavaScript",
+    href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+    icon: "javascript",
+  },
+  {
+    type: "icon",
+    name: "Laravel",
+    href: "https://laravel.com",
+    icon: "laravel",
+  },
+  {
+    type: "icon",
+    name: "Python",
+    href: "https://www.python.org",
+    icon: "python",
+  },
+  {
+    type: "icon",
+    name: "Figma",
+    href: "https://www.figma.com",
+    icon: "figma",
+  },
+  {
+    type: "icon",
+    name: "GitHub",
+    href: "https://github.com",
+    icon: "github",
+  },
+  {
+    type: "icon",
+    name: "Git",
+    href: "https://git-scm.com",
+    icon: "git",
+  },
+  {
+    type: "icon",
+    name: "Postman",
+    href: "https://www.postman.com",
+    icon: "postman",
   },
 ];
 
