@@ -1,18 +1,30 @@
-import React, { useEffect, useRef } from 'react';
-import { milestones as milestoneData, miniPlaceHolderImage, projects as projectData } from '../assets/data';
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { splitWords, revealWords, revealClip, revealFade } from "../utils/gsapReveal";
-import { useLanguage } from '../i18n/LanguageContext';
+import React, { useEffect, useRef } from "react";
+import {
+  milestones as milestoneData,
+  miniPlaceHolderImage,
+  projects as projectData,
+} from "../assets/data";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  splitWords,
+  revealWords,
+  revealClip,
+  revealFade,
+} from "../utils/gsapReveal";
+import { useLanguage } from "../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Work = () => {
   const { t } = useLanguage();
   const projects = projectData.map((p, i) => ({ ...p, ...t.work.projects[i] }));
-  const milestones = milestoneData.map((m, i) => ({ ...m, ...t.work.milestones[i] }));
+  const milestones = milestoneData.map((m, i) => ({
+    ...m,
+    ...t.work.milestones[i],
+  }));
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const projectImageRefs = useRef([]);
@@ -56,11 +68,14 @@ const Work = () => {
           trigger: miniProjectRef.current,
           duration: 1.3,
         });
-        revealFade(miniProjectRef.current.querySelectorAll("[data-mini-text]"), {
-          trigger: miniProjectRef.current,
-          stagger: 0.08,
-          delay: 0.2,
-        });
+        revealFade(
+          miniProjectRef.current.querySelectorAll("[data-mini-text]"),
+          {
+            trigger: miniProjectRef.current,
+            stagger: 0.08,
+            delay: 0.2,
+          },
+        );
       }
 
       // Mission text word reveal
@@ -99,7 +114,11 @@ const Work = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="projects" className="py-24 bg-white text-brand-navy">
+    <section
+      ref={sectionRef}
+      id="projects"
+      className="py-24 bg-white text-brand-navy"
+    >
       <div className="container mx-auto px-6 lg:px-4">
         {/* HEADER */}
         <div className="flex flex-col lg:flex-row justify-between items-baseline mb-16">
@@ -110,13 +129,18 @@ const Work = () => {
             {t.work.heading}
           </h2>
           {/* Info */}
-          <p className="text-sm font-medium text-zinc-500 mt-4 lg:mt-0">{t.work.sectionTag}</p>
+          <p className="text-sm font-medium text-zinc-500 mt-4 lg:mt-0">
+            {t.work.sectionTag}
+          </p>
         </div>
 
         {/* TOP PROJECTS GRID */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           {projects.map((project, index) => (
-            <div key={index} className="group cursor-pointer flex flex-col h-full">
+            <div
+              key={index}
+              className="group cursor-pointer flex flex-col h-full"
+            >
               {/* Image */}
               <div
                 ref={(el) => (projectImageRefs.current[index] = el)}
@@ -124,7 +148,12 @@ const Work = () => {
                 style={{ clipPath: "inset(100% 0% 0% 0%)" }}
               >
                 <div className="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-white italic text-lg flex items-center gap-2">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white italic text-lg flex items-center gap-2"
+                  >
                     {t.work.viewProject} <ArrowRight size={16} />
                   </a>
                 </div>
@@ -144,7 +173,9 @@ const Work = () => {
                 className="flex-1 flex flex-col"
               >
                 <div className="mb-4">
-                  <h3 className="text-xl md:text-2xl font-semibold mb-1">{project.title}</h3>
+                  <h3 className="text-xl md:text-2xl font-semibold mb-1">
+                    {project.title}
+                  </h3>
                   <p className="text-zinc-500 text-sm">{project.date}</p>
                 </div>
 
@@ -166,27 +197,45 @@ const Work = () => {
         {/* BOTTOM: MINI PROJECT + MISSION */}
         <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-24">
           <div ref={miniProjectRef} className="lg:col-span-4">
-            <div
-              data-mini-img
-              className="aspect-square w-full bg-zinc-100 rounded-3xl mb-4 overflow-hidden"
-              style={{ clipPath: "inset(100% 0% 0% 0%)" }}
+            <a
+              href="https://taufannurrizkie.github.io/Wajan_Nusantara/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group cursor-pointer"
             >
-              <img
-                src={miniPlaceHolderImage}
-                alt="Rock Bottom Project"
-                loading="lazy"
-                decoding="async"
-                className="size-full object-cover hover:scale-105 transition-transform duration-700 will-change-transform"
-              />
-            </div>
-            <h4 data-mini-text className="font-semibold text-lg">{t.work.miniTitle}</h4>
-            <p data-mini-text className="text-zinc-500 text-sm">{t.work.miniMeta}</p>
+              <div
+                data-mini-img
+                className="aspect-[4/3] w-full bg-zinc-100 rounded-3xl mb-4 overflow-hidden relative"
+                style={{ clipPath: "inset(100% 0% 0% 0%)" }}
+              >
+                <div className="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                  <span className="text-white italic text-lg flex items-center gap-2">
+                    {t.work.viewProject} <ArrowRight size={16} />
+                  </span>
+                </div>
+                <img
+                  src={miniPlaceHolderImage}
+                  alt="Rock Bottom Project"
+                  loading="lazy"
+                  decoding="async"
+                  className="size-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out will-change-transform"
+                />
+              </div>
+              <h4 data-mini-text className="font-semibold text-lg group-hover:text-blue-700 transition-colors">
+                {t.work.miniTitle}
+              </h4>
+              <p data-mini-text className="text-zinc-500 text-sm">
+                {t.work.miniMeta}
+              </p>
+            </a>
           </div>
 
           <div ref={missionTextRef} className="lg:col-span-8 flex flex-col">
             <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium leading-tight mb-6 lg:mb-8">
-              {t.work.missionLead}{' '}
-              <span className="font-bold text-blue-900">{t.work.missionAccent}</span>
+              {t.work.missionLead}{" "}
+              <span className="font-bold text-blue-900">
+                {t.work.missionAccent}
+              </span>
             </h3>
             <div data-cta className="lg:text-right">
               <Link to="/projects">
@@ -200,7 +249,9 @@ const Work = () => {
 
         {/* AGENCY MILESTONES */}
         <div className="border-t border-zinc-100 pt-16">
-          <p className="text-xs font-bold uppercase tracking-widest mb-12">{t.work.milestonesTitle}</p>
+          <p className="text-xs font-bold uppercase tracking-widest mb-12">
+            {t.work.milestonesTitle}
+          </p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {milestones.map((item, index) => (
               <div key={index} className="flex flex-col">
@@ -210,7 +261,9 @@ const Work = () => {
                 >
                   0
                 </span>
-                <div className="text-zinc-500 text-sm leading-relaxed">{item.label}</div>
+                <div className="text-zinc-500 text-sm leading-relaxed">
+                  {item.label}
+                </div>
               </div>
             ))}
           </div>

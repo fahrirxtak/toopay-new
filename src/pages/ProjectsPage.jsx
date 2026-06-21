@@ -12,11 +12,66 @@ gsap.registerPlugin(ScrollTrigger);
 // Display text (title/date/tags/description/client) comes from translations,
 // merged by index. tagKeys must match filter `key`s exactly.
 const projectMeta = [
-  { image: "/images/projects/project-1.webp", year: "2024", tagKeys: ["Website Design", "Development"] },
-  { image: "/images/projects/project-2.webp", year: "2023", tagKeys: ["Branding", "Social Media"] },
-  { image: "/images/projects/project-3.webp", year: "2026", tagKeys: ["Graphic Design"] },
-  { image: "/images/projects/project-4.webp", year: "2025", tagKeys: ["Brand Identity", "UI/UX Design"] },
-  { image: "/images/projects/project-5.webp", year: "2024", tagKeys: ["Development", "UI/UX Design"] },
+  {
+    image: "/images/projects/project-1.webp",
+    year: "2026",
+    tagKeys: ["Development"],
+  },
+  {
+    image: "/images/projects/project-2.webp",
+    year: "2023",
+    tagKeys: ["Brand Identity"],
+  },
+  {
+    image: "/images/projects/project-3.webp",
+    year: "2024",
+    tagKeys: ["Graphic Design"],
+  },
+  {
+    image: "/images/projects/project-4.webp",
+    year: "2025",
+    tagKeys: ["Brand Identity", "UI/UX Design"],
+  },
+  {
+    image: "/images/projects/project-5.webp",
+    year: "2025",
+    tagKeys: ["Development", "UI/UX Design"],
+  },
+  {
+    image: "/images/projects/project-6.webp",
+    year: "2023",
+    tagKeys: ["Website Design", "Development"],
+  },
+  {
+    image: "/images/projects/project-7.webp",
+    year: "2025",
+    tagKeys: ["Branding", "Social Media"],
+  },
+  {
+    image: "/images/projects/project-8.webp",
+    year: "2024",
+    tagKeys: ["Graphic Design"],
+  },
+  {
+    image: "/images/projects/project-9.webp",
+    year: "2026",
+    tagKeys: ["Brand Identity", "UI/UX Design"],
+  },
+  {
+    image: "/images/projects/project-10.webp",
+    year: "2026",
+    tagKeys: ["Development", "UI/UX Design"],
+  },
+  {
+    image: "/images/projects/project-11.webp",
+    year: "2026",
+    tagKeys: ["Website Design", "Development"],
+  },
+  {
+    image: "/images/projects/project-12.webp",
+    year: "2026",
+    tagKeys: ["Website Design", "Development"],
+  },
 ];
 
 const ProjectsPage = () => {
