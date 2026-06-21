@@ -1,11 +1,20 @@
-import React, { useEffect, useRef } from 'react';
-import { teamMembers, ourTeamImagePlaceHolder, starIconPathDrawing } from '../assets/data';
-import { ArrowRight, Star } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { splitWords, revealWords, revealClip, revealFade } from '../utils/gsapReveal';
-import { useLanguage } from '../i18n/LanguageContext';
+import React, { useEffect, useRef } from "react";
+import {
+  teamMembers,
+  ourTeamImagePlaceHolder,
+  starIconPathDrawing,
+} from "../assets/data";
+import { ArrowRight, Star } from "lucide-react";
+import { Link } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  splitWords,
+  revealWords,
+  revealClip,
+  revealFade,
+} from "../utils/gsapReveal";
+import { useLanguage } from "../i18n/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,7 +38,10 @@ const OurTeam = () => {
 
       // Card 1: image clip reveal
       if (card1Ref.current) {
-        revealClip(card1Ref.current, { trigger: card1Ref.current, duration: 1.4 });
+        revealClip(card1Ref.current, {
+          trigger: card1Ref.current,
+          duration: 1.4,
+        });
       }
 
       // Card 2 & 3: fade slide
@@ -51,13 +63,17 @@ const OurTeam = () => {
         gsap.to(counter, {
           val: 4.9,
           duration: 1.8,
-          ease: 'expo.out',
+          ease: "expo.out",
           onUpdate() {
             if (ratingEl.isConnected) {
-              ratingEl.textContent = counter.val.toFixed(1) + '/5';
+              ratingEl.textContent = counter.val.toFixed(1) + "/5";
             }
           },
-          scrollTrigger: { trigger: card3Ref.current, start: 'top 80%', once: true },
+          scrollTrigger: {
+            trigger: card3Ref.current,
+            start: "top 80%",
+            once: true,
+          },
         });
       }
 
@@ -75,7 +91,11 @@ const OurTeam = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="team" className="py-24 bg-white text-brand-navy">
+    <section
+      ref={sectionRef}
+      id="team"
+      className="py-24 bg-white text-brand-navy"
+    >
       <div className="container mx-auto px-6 lg:px-4">
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-20 gap-12">
@@ -89,12 +109,21 @@ const OurTeam = () => {
           </div>
 
           <div className="lg:max-w-xs pt-4">
-            <p className="text-sm font-medium text-zinc-500 mb-6 text-right lg:text-left">{t.team.sectionTag}</p>
+            <p className="text-sm font-medium text-zinc-500 mb-6 text-right lg:text-left">
+              {t.team.sectionTag}
+            </p>
 
             <div className="flex gap-2 mb-6">
               {teamMembers.map((member, i) => (
-                <div key={i} className="size-10 rounded-full border-2 border-brand-cream bg-brand-cream overflow-hidden">
-                  <img src={member.img} alt={`team-member-${i}`} className="size-full object-cover" />
+                <div
+                  key={i}
+                  className="size-10 rounded-full border-2 border-brand-cream bg-brand-cream overflow-hidden"
+                >
+                  <img
+                    src={member.img}
+                    alt={`team-member-${i}`}
+                    className="size-full object-cover"
+                  />
                 </div>
               ))}
             </div>
@@ -111,7 +140,7 @@ const OurTeam = () => {
           <div
             ref={card1Ref}
             className="relative group aspect-[4/5] bg-zinc-100 rounded-[2.5rem] overflow-hidden"
-            style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
+            style={{ clipPath: "inset(100% 0% 0% 0%)" }}
           >
             <img
               src={ourTeamImagePlaceHolder}
@@ -120,7 +149,9 @@ const OurTeam = () => {
             />
             <div className="absolute bottom-8 left-8">
               <div className="px-4 py-2 bg-zinc-900/40 backdrop-blur-md border border-white/10 rounded-full">
-                <span className="text-xs font-medium text-white">{t.team.deliver}</span>
+                <span className="text-xs font-medium text-white">
+                  {t.team.deliver}
+                </span>
               </div>
             </div>
           </div>
@@ -131,7 +162,11 @@ const OurTeam = () => {
             className="bg-gradient-to-br from-blue-700 to-indigo-950 rounded-[2.5rem] p-10 text-white flex flex-col justify-between min-h-[450px]"
           >
             <div className="size-10 text-white">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="size-full">
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="size-full"
+              >
                 <path d={starIconPathDrawing} />
               </svg>
             </div>
@@ -150,19 +185,12 @@ const OurTeam = () => {
             ref={card3Ref}
             className="bg-zinc-50 border border-zinc-100 rounded-[2.5rem] p-10 flex flex-col justify-between min-h-[450px]"
           >
-            <p className="text-xs lg:text-sm font-medium text-zinc-400 mb-8">{t.team.ratingLabel}</p>
+            <p className="text-xs lg:text-sm font-medium text-zinc-400 mb-8">
+              {t.team.ratingLabel}
+            </p>
             <h3 className="text-8xl font-semibold tracking-tighter bg-gradient-to-r from-blue-700 to-blue-400 bg-clip-text text-transparent">
               <span ref={ratingNumberRef}>0/5</span>
             </h3>
-            <div className="pt-8 border-t border-zinc-200 flex flex-col justify-between items-end gap-6">
-              <p className="text-zinc-500 font-medium text-sm max-w-[140px]">
-                {t.team.ratingDesc}
-              </p>
-              <div className="flex items-center gap-2">
-                <Star fill="#00B67A" className="text-[#00B67A] text-xl" />
-                <span className="font-bold tracking-tight text-lg">Truspilot</span>
-              </div>
-            </div>
           </div>
         </div>
 

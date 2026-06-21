@@ -41,17 +41,21 @@ const brands = [
   { name: "spotify", logo: "(spotify)" },
 ];
 
-const miniPlaceHolderImage =
-  "/images/projects/project-3.webp";
+const miniPlaceHolderImage = "/images/projects/project-10.webp";
 
-const ourTeamImagePlaceHolder =
-  "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop";
+const ourTeamImagePlaceHolder = "/images/ToopayLogo.webp";
 
 // Structural data only — translatable text (title/date/tags) lives in
 // src/i18n/translations.js under `work.projects`, merged by index.
 const projects = [
-  { image: "/images/projects/project-1.webp", link: "https://growthica.vercel.app/" },
-  { image: "/images/projects/project-9.webp", link: "https://lyca-psi.vercel.app/" },
+  {
+    image: "/images/projects/project-1.webp",
+    link: "https://growthica.vercel.app/",
+  },
+  {
+    image: "/images/projects/project-9.webp",
+    link: "https://lyca-psi.vercel.app/",
+  },
 ];
 
 // `label` lives in translations.js under `work.milestones`, merged by index.

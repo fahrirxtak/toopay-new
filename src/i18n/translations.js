@@ -86,6 +86,66 @@ export const translations = {
       ],
     },
 
+    pricing: {
+      sectionTag: "(HARGA - 02.5)",
+      title: "Paket Harga Website",
+      setupFee: "Biaya Setup",
+      maintenance: "Gratis update / edit halaman yang sudah ada selama 3 bulan",
+      plans: [
+        {
+          name: "Landing Page",
+          description: "Untuk promosi produk atau kampanye",
+          price: "Rp 1.500.000",
+          period: "project",
+          features: [
+            "1 halaman website",
+            "Waktu pengerjaan 3-5 hari",
+            "Domain gratis (.com 1 tahun)",
+            "Hosting gratis (1 tahun)",
+            "Email bisnis gratis",
+            "SSL gratis",
+            "SEO dasar",
+            "Editing gambar dasar",
+          ],
+          setupFee: "Rp 500.000",
+        },
+        {
+          name: "Company Profile",
+          description: "Untuk profil bisnis profesional",
+          price: "Rp 3.500.000",
+          period: "project",
+          features: [
+            "3-5 halaman website",
+            "Waktu pengerjaan 7-10 hari",
+            "Domain gratis (.com 1 tahun)",
+            "Hosting gratis (1 tahun)",
+            "Email bisnis gratis",
+            "SSL gratis",
+            "SEO dasar",
+            "Editing gambar dasar",
+          ],
+          setupFee: "Rp 1.000.000",
+        },
+        {
+          name: "Custom Website",
+          description: "Untuk fitur khusus dan kompleks",
+          price: "Rp 7.000.000",
+          period: "project",
+          features: [
+            "Halaman tanpa batas",
+            "Waktu pengerjaan 14-21 hari",
+            "Domain gratis (.com 1 tahun)",
+            "Hosting gratis (1 tahun)",
+            "Email bisnis gratis",
+            "SSL gratis",
+            "SEO dasar",
+            "Editing gambar dasar",
+          ],
+          setupFee: "Rp 2.000.000",
+        },
+      ],
+    },
+
     work: {
       heading: "Proyek yang Sudah Kami Kerjakan",
       sectionTag: "(PROYEK - 03)",
@@ -100,12 +160,12 @@ export const translations = {
         {
           title: "Growthica",
           date: "(2024 — Masih berjalan)",
-          tags: ["Custom Website", "Pengembangan"],
+          tags: ["Landing Page", "Pertanian"],
         },
         {
-          title: "LCYA",
+          title: "Bridge of Hope",
           date: "(2023 — Jan 2025)",
-          tags: ["Company Profile", "Desain"],
+          tags: ["Custom Website", "Donasi"],
         },
       ],
       milestones: [
@@ -262,42 +322,106 @@ export const translations = {
         {
           title: "Growthica",
           date: "(2024 — Masih berjalan)",
-          tags: ["Custom Website", "Pengembangan"],
+          tags: ["Landing Page", "Pertanian"],
           description:
-            "Platform web custom dengan fitur chat real-time dan antarmuka yang modern dan mudah digunakan.",
-          client: "Chat Genius Ltd.",
+            "Landing page modern untuk mempromosikan produk, inovasi, dan ekosistem di sektor pertanian modern.",
+          client: "Growthica Tani",
         },
         {
           title: "Bridge of Hope",
           date: "(2023 — Jan 2025)",
-          tags: ["Company Profile", "Desain"],
+          tags: ["Company Profile", "Donasi"],
           description:
-            "Website company profile profesional untuk studio tipografi premium — bersih, elegan, dan mudah dinavigasi.",
-          client: "Field Type Studio",
+            "Website platform donasi online yang aman dan transparan untuk menghubungkan para donatur dengan program kemanusiaan.",
+          client: "Bridge of Hope Foundation",
         },
         {
           title: "WasteJourney",
           date: "(2026 — Berlangsung)",
           tags: ["Landing Page"],
           description:
-            "Landing page dengan visual yang kuat dan karakter — dirancang untuk menarik perhatian dan mendorong konversi.",
-          client: "Independen",
+            "Landing page interaktif yang edukatif fokus pada program manajemen, pelacakan, dan pengolahan sampah lingkungan.",
+          client: "WasteJourney Indonesia",
         },
         {
           title: "Routify",
           date: "(2025 — Mar 2025)",
-          tags: ["Custom Website", "Desain UI/UX"],
+          tags: ["Custom Website", "AI Planner"],
           description:
-            "Website custom lengkap untuk startup teknologi — dari halaman marketing hingga dashboard produk.",
-          client: "Neon Pulse Inc.",
+            "Aplikasi perencana perjalanan berbasis AI kustom untuk menyusun rute, jadwal, dan estimasi waktu perjalanan secara otomatis.",
+          client: "Routify Travel Tech",
         },
         {
-          title: "Kertapati",
-          date: "(2024 — Des 2024)",
-          tags: ["Custom Website", "Desain UI/UX"],
+          title: "Nusantara Tech",
+          date: "(2023 — Agu 2023)",
+          tags: ["Website Design", "Sistem Pemetaan"],
           description:
-            "Platform web full-stack untuk brand lifestyle ramah lingkungan, dibangun dengan React dan Laravel.",
-          client: "Verdant Co.",
+            "Sistem informasi pemetaan interaktif berbasis web untuk mendata persebaran dan potensi UMKM di daerah Kertapati.",
+          client: "Dinas Koperasi & UMKM Kertapati",
+        },
+        {
+          title: "CSR Cirebon",
+          date: "(2025 — Feb 2025)",
+          tags: ["Branding", "Corporate Website"],
+          description:
+            "Website platform dokumentasi dan penyaluran program Corporate Social Responsibility (CSR) khusus wilayah Cirebon.",
+          client: "CSR Cirebon Hub",
+        },
+        {
+          title: "Zyra",
+          date: "(2024 — Okt 2024)",
+          tags: ["Custom Website", "Fintech"],
+          description:
+            "Website layanan zakat online interaktif untuk mempermudah perhitungan, penyaluran, dan transparansi laporan zakat.",
+          client: "Zyra Zakat Lembaga",
+        },
+        {
+          title: "Digital Library",
+          date: "(2026 — Jan 2026)",
+          tags: ["Landing Page", "E-Book"],
+          description:
+            "Landing page representatif untuk mempromosikan platform membaca buku online, koleksi digital, dan keanggotaan pustaka.",
+          client: "Digital Library Team",
+        },
+        {
+          title: "Lycaa",
+          date: "(2025 — Jul 2025)",
+          tags: ["Landing Page", "E-Commerce"],
+          description:
+            "Landing page katalog produk eksklusif untuk pemasaran koleksi tas modis dan aksesoris keychain kreatif.",
+          client: "Lycaa Store",
+        },
+        {
+          title: "Wajan Nusantara",
+          date: "(2024 — Nov 2024)",
+          tags: ["Landing Page", "Kuliner"],
+          description:
+            "Landing page kuliner lokal yang estetik untuk mengenalkan menu variasi jajanan pasar tradisional khas nusantara.",
+          client: "Wajan Nusantara Group",
+        },
+        {
+          title: "Admin Dashboard",
+          date: "(2024 — Des 2024)",
+          tags: ["Custom Website", "UI/UX Design"],
+          description:
+            "Sistem panel admin kustom berkinerja tinggi untuk memantau metrik data, transaksi, dan kelola konten sistem internal.",
+          client: "Internal Ecosystem",
+        },
+        {
+          title: "SISTRA",
+          date: "(2026 — Berlangsung)",
+          tags: ["Custom Website", "Logistik"],
+          description:
+            "Sistem informasi transparansi pengiriman kelapa sawit terintegrasi, mencatat rute, data angkut, dan verifikasi muatan.",
+          client: "PT Kelapa Sawit Mandiri",
+        },
+        {
+          title: "B2B Agro Mart",
+          date: "(2025 — Agu 2025)",
+          tags: ["Custom Website", "E-Commerce"],
+          description:
+            "Platform web custom e-commerce berskala B2B untuk menyederhanakan transaksi grosir pasokan pangan antarpemangku kepentingan.",
+          client: "Agro Mart Nusantara",
         },
       ],
     },
@@ -392,6 +516,66 @@ export const translations = {
       ],
     },
 
+    pricing: {
+      sectionTag: "(PRICING - 02.5)",
+      title: "Website Pricing Packages",
+      setupFee: "Setup Fee",
+      maintenance: "Free update / edit existing page for 3 months",
+      plans: [
+        {
+          name: "Landing Page",
+          description: "For product promotion or campaigns",
+          price: "Rp 1.500.000",
+          period: "project",
+          features: [
+            "1 website page",
+            "Working time 3-5 days",
+            "Free domain (.com 1 year)",
+            "Free hosting (1 year)",
+            "Free business email",
+            "Free SSL",
+            "Basic SEO",
+            "Basic image editing",
+          ],
+          setupFee: "Rp 500.000",
+        },
+        {
+          name: "Company Profile",
+          description: "For professional business profile",
+          price: "Rp 3.500.000",
+          period: "project",
+          features: [
+            "3-5 website pages",
+            "Working time 7-10 days",
+            "Free domain (.com 1 year)",
+            "Free hosting (1 year)",
+            "Free business email",
+            "Free SSL",
+            "Basic SEO",
+            "Basic image editing",
+          ],
+          setupFee: "Rp 1.000.000",
+        },
+        {
+          name: "Custom Website",
+          description: "For special and complex features",
+          price: "Rp 7.000.000",
+          period: "project",
+          features: [
+            "Unlimited pages",
+            "Working time 14-21 days",
+            "Free domain (.com 1 year)",
+            "Free hosting (1 year)",
+            "Free business email",
+            "Free SSL",
+            "Basic SEO",
+            "Basic image editing",
+          ],
+          setupFee: "Rp 2.000.000",
+        },
+      ],
+    },
+
     work: {
       heading: "Projects We've Built",
       sectionTag: "(PROJECT - 03)",
@@ -405,13 +589,13 @@ export const translations = {
       projects: [
         {
           title: "Growthica",
-          date: "(2024 — Still ongoing)",
-          tags: ["Custom Website", "Development"],
+          date: "(2026 — Still ongoing)",
+          tags: ["Landing Page", "Agriculture"],
         },
         {
-          title: "LCYA",
+          title: "Bridge of Hope",
           date: "(2023 — Jan 2025)",
-          tags: ["Company Profile", "Design"],
+          tags: ["Custom Website", "Donation"],
         },
       ],
       milestones: [
@@ -567,42 +751,106 @@ export const translations = {
         {
           title: "Growthica",
           date: "(2024 — Still ongoing)",
-          tags: ["Custom Website", "Development"],
+          tags: ["Landing Page", "Agriculture"],
           description:
-            "Custom web platform with real-time chat features and a modern, easy-to-use interface.",
-          client: "Chat Genius Ltd.",
+            "A modern landing page built to market and promote smart eco-farming initiatives and agricultural ecosystems.",
+          client: "Growthica Agriculture",
         },
         {
           title: "Bridge of Hope",
           date: "(2023 — Jan 2025)",
-          tags: ["Company Profile", "Design"],
+          tags: ["Custom Website", "Donation"],
           description:
-            "Professional company profile website for a premium typography studio — clean, elegant, and easy to navigate.",
-          client: "Field Type Studio",
+            "An online donation platform tailored for securing fundraising efforts and displaying transparent community campaign milestones.",
+          client: "Bridge of Hope Foundation",
         },
         {
           title: "WasteJourney",
           date: "(2026 — Ongoing)",
           tags: ["Landing Page"],
           description:
-            "Landing page with strong visual character — built to grab attention and drive conversions.",
-          client: "Independent",
+            "Interactive and engaging landing page focusing on dynamic waste processing programs and environmental management.",
+          client: "WasteJourney Indonesia",
         },
         {
           title: "Routify",
           date: "(2025 — Mar 2025)",
-          tags: ["Custom Website", "UI/UX Design"],
+          tags: ["Custom Website", "AI Planner"],
           description:
-            "Full custom website for a tech startup — from marketing pages to product dashboard.",
-          client: "Neon Pulse Inc.",
+            "A custom AI-driven trip planner application made to automatically map out travel routes, schedules, and timing estimates.",
+          client: "Routify Travel Tech",
         },
         {
-          title: "Kertapati",
+          title: "Nusantara Tech",
+          date: "(2023 — Aug 2023)",
+          tags: ["Website Design", "Mapping System"],
+          description:
+            "Web-based interactive information mapping system engineered to map regional MSME (UMKM) density across Kertapati.",
+          client: "Kertapati MSME Council",
+        },
+        {
+          title: "CSR Cirebon",
+          date: "(2025 — Feb 2025)",
+          tags: ["Branding", "Corporate Website"],
+          description:
+            "A dedicated hub for logging and organizing corporate social responsibility (CSR) initiatives across the Cirebon region.",
+          client: "CSR Cirebon Hub",
+        },
+        {
+          title: "Zyra",
+          date: "(2024 — Oct 2024)",
+          tags: ["Custom Website", "Fintech"],
+          description:
+            "An interactive digital zakat portal facilitating calculations, distribution logs, and transparent transaction breakdowns.",
+          client: "Zyra Zakat Agency",
+        },
+        {
+          title: "Digital Library",
+          date: "(2026 — Jan 2026)",
+          tags: ["Landing Page", "E-Book"],
+          description:
+            "Clean landing page created to pitch an online e-book reading platform, virtual library sets, and membership perks.",
+          client: "Digital Library Team",
+        },
+        {
+          title: "Lycaa",
+          date: "(2025 — Jul 2025)",
+          tags: ["Landing Page", "E-Commerce"],
+          description:
+            "Product catalog landing page optimized to market premium bag collections and custom creative keychains.",
+          client: "Lycaa Store",
+        },
+        {
+          title: "Wajan Nusantara",
+          date: "(2024 — Nov 2024)",
+          tags: ["Landing Page", "Culiner"],
+          description:
+            "An aesthetic local culinary landing page designed to capture attention and promote traditional snack menus.",
+          client: "Wajan Nusantara Group",
+        },
+        {
+          title: "Admin Dashboard",
           date: "(2024 — Dec 2024)",
           tags: ["Custom Website", "UI/UX Design"],
           description:
-            "Full-stack web platform for an eco-conscious lifestyle brand, built with React and Laravel.",
-          client: "Verdant Co.",
+            "High-performance custom back-end console to monitor metrics, track operational flows, and manage internal files safely.",
+          client: "Internal Ecosystem",
+        },
+        {
+          title: "SISTRA",
+          date: "(2026 — Ongoing)",
+          tags: ["Custom Website", "Logistics"],
+          description:
+            "An integrated shipping transparency system for palm oil logistics, logging routes, delivery weight, and load validation.",
+          client: "PT Kelapa Sawit Mandiri",
+        },
+        {
+          title: "B2B Agro Mart",
+          date: "(2025 — Aug 2025)",
+          tags: ["Custom Website", "E-Commerce"],
+          description:
+            "Full-stack B2B custom e-commerce system engineered to streamline high-volume distribution pipelines among agricultural stakeholders.",
+          client: "Agro Mart Nusantara",
         },
       ],
     },

@@ -258,7 +258,7 @@ const Testimonials = () => {
               scaleOnHover
               fadeOut={false}
               fullWidthSequence={true}
-              loop={false}
+              loop={true}
               ariaLabel="Technology partners"
               renderItem={renderLogoItem}
             />
