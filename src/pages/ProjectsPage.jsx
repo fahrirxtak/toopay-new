@@ -100,6 +100,8 @@ const ProjectsPage = () => {
   const filterRef = useRef(null);
   const gridRef = useRef(null);
   const modalRef = useRef(null);
+  const modalScrollRef = useRef(null);
+  const [showScrollHint, setShowScrollHint] = useState(false);
 
   const filtered =
     activeFilter === "All"
@@ -236,6 +238,12 @@ const ProjectsPage = () => {
 
   const openModal = (project) => {
     setSelectedProject(project);
+    const scrollY = window.scrollY;
+    document.body.dataset.scrollY = String(scrollY);
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
     document.body.style.overflow = "hidden";
   };
 
@@ -248,7 +256,13 @@ const ProjectsPage = () => {
       ease: "power2.in",
       onComplete: () => {
         setSelectedProject(null);
+        const scrollY = Number(document.body.dataset.scrollY || 0);
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
         document.body.style.overflow = "";
+        window.scrollTo(0, scrollY);
       },
     });
   };
@@ -263,12 +277,72 @@ const ProjectsPage = () => {
     }
   }, [selectedProject]);
 
+  // Show a bottom fade hint only while there's more content to scroll
+  useEffect(() => {
+    const el = modalScrollRef.current;
+    if (!selectedProject || !el) {
+      setShowScrollHint(false);
+      return;
+    }
+
+    const checkScroll = () => {
+      const hasMore = el.scrollHeight - el.scrollTop - el.clientHeight > 4;
+      setShowScrollHint(hasMore);
+    };
+
+    checkScroll();
+    el.addEventListener("scroll", checkScroll);
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [selectedProject]);
+
   useEffect(() => {
     const handler = (e) => {
-      if (e.key === "Escape") closeModal();
+      if (e.key === "Escape") {
+        closeModal();
+        return;
+      }
+      // Block keys that scroll the page when focus isn't inside the modal
+      const scrollKeys = [
+        " ",
+        "ArrowUp",
+        "ArrowDown",
+        "PageUp",
+        "PageDown",
+        "Home",
+        "End",
+      ];
+      if (
+        scrollKeys.includes(e.key) &&
+        modalRef.current &&
+        !modalRef.current.contains(e.target)
+      ) {
+        e.preventDefault();
+      }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
+  }, [selectedProject]);
+
+  // Force every wheel scroll while the modal is open to scroll the modal's
+  // content only — the background page never moves, no matter where the
+  // cursor is (even over the dark backdrop).
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    const handleWheel = (e) => {
+      const scrollEl = modalScrollRef.current;
+      if (!scrollEl) return;
+      e.preventDefault();
+      e.stopPropagation();
+      scrollEl.scrollTop += e.deltaY;
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
   }, [selectedProject]);
 
   return (
@@ -433,79 +507,93 @@ const ProjectsPage = () => {
       {/* ── MODAL ── */}
       {selectedProject && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-8 bg-black/70 backdrop-blur-sm overflow-y-auto"
           onClick={(e) => e.target === e.currentTarget && closeModal()}
         >
           <div
             ref={modalRef}
-            className="bg-white rounded-3xl w-full max-w-3xl max-h-[90vh] overflow-y-auto"
+            className="relative bg-white rounded-2xl sm:rounded-3xl w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl max-h-[92vh] sm:max-h-[90vh] max-h-[92dvh] sm:max-h-[90dvh] flex flex-col overflow-hidden my-auto"
           >
-            <div className="aspect-video w-full overflow-hidden rounded-t-3xl">
-              <img
-                src={selectedProject.image}
-                alt={selectedProject.title}
-                className="size-full object-cover"
-              />
-            </div>
-            <div className="p-8 md:p-12">
-              <div className="flex items-start justify-between gap-4 mb-8">
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-2">
-                    {selectedProject.title}
-                  </h2>
-                  <p className="text-zinc-400 text-sm">
-                    {selectedProject.date}
-                  </p>
-                </div>
-                <button
-                  onClick={closeModal}
-                  className="size-10 rounded-full border border-zinc-200 flex items-center justify-center hover:bg-zinc-50 transition-colors shrink-0"
-                  aria-label="Close"
-                >
-                  <X size={18} />
-                </button>
+            {/* Scrollable area: image + content scroll together */}
+            <div
+              ref={modalScrollRef}
+              className="overflow-y-auto overscroll-contain min-h-0 flex-1 [scrollbar-width:thin] [scrollbar-color:#d4d4d8_transparent] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-300 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-zinc-400"
+            >
+              <div className="aspect-[16/10] sm:aspect-video w-full overflow-hidden rounded-t-2xl sm:rounded-t-3xl shrink-0">
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  className="size-full object-cover"
+                />
               </div>
-
-              <p className="text-zinc-600 text-lg leading-relaxed mb-8">
-                {selectedProject.description}
-              </p>
-
-              <div className="grid grid-cols-2 gap-6 mb-8 pt-8 border-t border-zinc-100">
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">
-                    {t.projects.clientLabel}
-                  </p>
-                  <p className="font-semibold">
-                    {selectedProject.client || t.projects.confidential}
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">
-                    {t.projects.yearLabel}
-                  </p>
-                  <p className="font-semibold">{selectedProject.year || "—"}</p>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mb-10">
-                {selectedProject.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="text-xs px-4 py-2 rounded-full border border-zinc-200 text-zinc-600 font-medium"
+              <div className="p-5 sm:p-8 lg:p-12">
+                <div className="flex items-start justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
+                  <div className="min-w-0">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight mb-1.5 sm:mb-2 break-words">
+                      {selectedProject.title}
+                    </h2>
+                    <p className="text-zinc-400 text-sm">
+                      {selectedProject.date}
+                    </p>
+                  </div>
+                  <button
+                    onClick={closeModal}
+                    className="size-9 sm:size-10 rounded-full border border-zinc-200 flex items-center justify-center hover:bg-zinc-50 transition-colors shrink-0"
+                    aria-label="Close"
                   >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+                    <X size={18} />
+                  </button>
+                </div>
 
-              <Link
-                to="/contact"
-                onClick={closeModal}
-                className="inline-flex items-center gap-3 px-7 py-3.5 bg-brand-navy text-white rounded-full font-bold hover:bg-blue-700 transition-all"
-              >
-                {t.projects.similarProject} <ArrowRight size={18} />
-              </Link>
+                <p className="text-zinc-600 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
+                  {selectedProject.description}
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 pt-6 sm:pt-8 border-t border-zinc-100">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">
+                      {t.projects.clientLabel}
+                    </p>
+                    <p className="font-semibold break-words">
+                      {selectedProject.client || t.projects.confidential}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-2">
+                      {t.projects.yearLabel}
+                    </p>
+                    <p className="font-semibold">
+                      {selectedProject.year || "—"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mb-8 sm:mb-10">
+                  {selectedProject.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="text-xs px-4 py-2 rounded-full border border-zinc-200 text-zinc-600 font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <Link
+                  to="/contact"
+                  onClick={closeModal}
+                  className="inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-7 py-3 sm:py-3.5 text-sm sm:text-base bg-brand-navy text-white rounded-full font-bold hover:bg-blue-700 transition-all"
+                >
+                  {t.projects.similarProject} <ArrowRight size={18} />
+                </Link>
+              </div>
             </div>
+            {/* Fade hint showing there's more content to scroll */}
+            <div
+              className={`pointer-events-none absolute bottom-0 left-0 right-0 h-12 sm:h-16 bg-gradient-to-t from-white via-white/80 to-transparent rounded-b-2xl sm:rounded-b-3xl transition-opacity duration-300 ${
+                showScrollHint ? "opacity-100" : "opacity-0"
+              }`}
+            />
           </div>
         </div>
       )}
