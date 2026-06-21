@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { milestones as milestoneData } from "../assets/data";
 import { useLanguage } from "../i18n/LanguageContext";
+import { MessageCircle } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -508,6 +509,15 @@ const ProjectsPage = () => {
           </div>
         </div>
       )}
+      <a
+        href="https://wa.me/6287876982219"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-5 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle size={38} />
+      </a>
     </div>
   );
 };
