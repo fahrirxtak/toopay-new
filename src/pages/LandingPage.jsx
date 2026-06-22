@@ -10,7 +10,11 @@ import { MessageCircle } from "lucide-react";
 import { useEffect } from "react";
 import FAQ from "@/components/FAQ";
 
+import { useLanguage } from "../i18n/LanguageContext";
+
 const LandingPage = () => {
+  const { t } = useLanguage();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -32,7 +36,7 @@ const LandingPage = () => {
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-5 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-        aria-label="Chat on WhatsApp"
+        aria-label={t.contact.whatsappAriaLabel}
       >
         <MessageCircle size={38} />
       </a>

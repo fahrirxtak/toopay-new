@@ -313,7 +313,7 @@ const Footer = () => {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    ariaLabel={`Visit our ${link.name} profile`}
+                    ariaLabel={t.footer.socialAriaLabel.replace("{name}", link.name)}
                   >
                     {link.name}
                   </LinkItem>

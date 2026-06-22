@@ -26,14 +26,6 @@ const EMAILJS_PUBLIC_KEY = "S-jy8IisCQT_kFy2j";
 
 const serviceIcons = ["✦", "◈", "⌥", "+"];
 
-const currencies = [
-  { code: "USD", symbol: "$", name: "US Dollar" },
-  { code: "IDR", symbol: "Rp", name: "Indonesian Rupiah" },
-  { code: "EUR", symbol: "€", name: "Euro" },
-  { code: "SGD", symbol: "S$", name: "Singapore Dollar" },
-  { code: "MYR", symbol: "RM", name: "Malaysian Ringgit" },
-];
-
 const ContactPage = () => {
   const { t } = useLanguage();
   const services = t.contact.services.map((label, i) => ({
@@ -433,7 +425,7 @@ const ContactPage = () => {
                         <label
                           className={`absolute -top-2.5 left-0 text-[10px] font-bold uppercase tracking-widest transition-colors duration-200 ${focused === "currency" ? "text-prime-accent" : "text-zinc-400"}`}
                         >
-                          Currency
+                          {t.contact.fieldCurrency}
                         </label>
                         <select
                           name="currency"
@@ -443,7 +435,7 @@ const ContactPage = () => {
                           onBlur={() => setFocused("")}
                           className={`w-full bg-transparent border-b pt-4 pb-3 text-lg text-brand-navy outline-none transition-colors duration-200 cursor-pointer ${focused === "currency" ? "border-prime-accent" : "border-zinc-200"}`}
                         >
-                          {currencies.map((c) => (
+                          {t.contact.currencies.map((c) => (
                             <option key={c.code} value={c.code}>
                               {c.code} ({c.symbol})
                             </option>
@@ -566,7 +558,7 @@ const ContactPage = () => {
                       <p className="text-brand-navy font-medium">
                         {t.contact.locationValue}
                         <br />
-                        Indonesia
+                        {t.contact.countryName}
                       </p>
                     </div>
                   </div>
@@ -578,7 +570,7 @@ const ContactPage = () => {
                       <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">
                         {t.contact.timezoneLabel}
                       </p>
-                      <p className="text-brand-navy font-medium">WIB — GMT+7</p>
+                      <p className="text-brand-navy font-medium">{t.contact.timezoneValue}</p>
                     </div>
                   </div>
                 </div>
@@ -621,7 +613,7 @@ const ContactPage = () => {
                   {t.contact.followUs}
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  {["Instagram", "Twitter (X)", "LinkedIn", "TikTok"].map(
+                  {t.contact.socialLinks.map(
                     (s) => (
                       <a
                         key={s}
@@ -643,7 +635,7 @@ const ContactPage = () => {
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-5 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-        aria-label="Chat on WhatsApp"
+        aria-label={t.contact.whatsappAriaLabel}
       >
         <MessageCircle size={38} />
       </a>

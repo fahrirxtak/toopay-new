@@ -260,6 +260,7 @@ export const translations = {
       navigate: "Navigasi",
       socialMedia: "Media Sosial",
       navLinks: ["Beranda", "Proyek", "Layanan", "Tentang", "Kontak"],
+      socialAriaLabel: "Kunjungi profil {name} kami",
     },
 
     mobileMenu: {
@@ -267,6 +268,9 @@ export const translations = {
       locationValue: "Bandung, Jawa Barat, Indonesia",
       contactLabel: "Kontak",
       copyright: "Toopay Agency",
+      phone: "+62 878 7698 2219",
+      email: "tooopayy@gmail.com",
+      socials: ["Instagram", "Tiktok"],
     },
 
     contact: {
@@ -333,6 +337,18 @@ export const translations = {
       timezoneLabel: "Zona Waktu",
       ourProcess: "Cara Kerja Kami",
       followUs: "Ikuti Kami",
+      fieldCurrency: "Mata Uang",
+      countryName: "Indonesia",
+      timezoneValue: "WIB — GMT+7",
+      socialLinks: ["Instagram", "Twitter (X)", "LinkedIn", "TikTok"],
+      whatsappAriaLabel: "Chat via WhatsApp",
+      currencies: [
+        { code: "USD", symbol: "$", name: "Dolar AS" },
+        { code: "IDR", symbol: "Rp", name: "Rupiah Indonesia" },
+        { code: "EUR", symbol: "€", name: "Euro" },
+        { code: "SGD", symbol: "S$", name: "Dolar Singapura" },
+        { code: "MYR", symbol: "RM", name: "Ringgit Malaysia" },
+      ],
     },
 
     projects: {
@@ -351,6 +367,8 @@ export const translations = {
       yearLabel: "Tahun",
       confidential: "Rahasia",
       similarProject: "Buat Website Serupa",
+      closeAriaLabel: "Tutup",
+      whatsappAriaLabel: "Chat via WhatsApp",
       items: [
         {
           title: "Growthica",
@@ -723,6 +741,7 @@ export const translations = {
       navigate: "Navigate",
       socialMedia: "Social Media",
       navLinks: ["Home", "Projects", "Service", "About", "Contact"],
+      socialAriaLabel: "Visit our {name} profile",
     },
 
     mobileMenu: {
@@ -730,6 +749,9 @@ export const translations = {
       locationValue: "Bandung, Jawa Barat, Indonesia",
       contactLabel: "Contact",
       copyright: "Toopay Agency",
+      phone: "+62 878 7698 2219",
+      email: "tooopayy@gmail.com",
+      socials: ["Instagram", "Tiktok"],
     },
 
     contact: {
@@ -795,6 +817,18 @@ export const translations = {
       timezoneLabel: "Timezone",
       ourProcess: "How We Work",
       followUs: "Follow Us",
+      fieldCurrency: "Currency",
+      countryName: "Indonesia",
+      timezoneValue: "WIB — GMT+7",
+      socialLinks: ["Instagram", "Twitter (X)", "LinkedIn", "TikTok"],
+      whatsappAriaLabel: "Chat on WhatsApp",
+      currencies: [
+        { code: "USD", symbol: "$", name: "US Dollar" },
+        { code: "IDR", symbol: "Rp", name: "Indonesian Rupiah" },
+        { code: "EUR", symbol: "€", name: "Euro" },
+        { code: "SGD", symbol: "S$", name: "Singapore Dollar" },
+        { code: "MYR", symbol: "RM", name: "Malaysian Ringgit" },
+      ],
     },
 
     projects: {
@@ -813,6 +847,8 @@ export const translations = {
       yearLabel: "Year",
       confidential: "Confidential",
       similarProject: "Build a Similar Website",
+      closeAriaLabel: "Close",
+      whatsappAriaLabel: "Chat on WhatsApp",
       items: [
         {
           title: "Growthica",
