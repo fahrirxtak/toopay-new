@@ -539,7 +539,7 @@ const ProjectsPage = () => {
                   <button
                     onClick={closeModal}
                     className="size-9 sm:size-10 rounded-full border border-zinc-200 flex items-center justify-center hover:bg-zinc-50 transition-colors shrink-0"
-                    aria-label="Close"
+                    aria-label={t.projects.closeAriaLabel}
                   >
                     <X size={18} />
                   </button>
@@ -602,7 +602,7 @@ const ProjectsPage = () => {
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-5 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-        aria-label="Chat on WhatsApp"
+        aria-label={t.projects.whatsappAriaLabel}
       >
         <MessageCircle size={38} />
       </a>
