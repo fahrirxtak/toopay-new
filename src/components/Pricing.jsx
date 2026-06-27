@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Check } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { revealWords, splitWords, revealFade } from "../utils/gsapReveal";
@@ -74,10 +75,12 @@ const Pricing = () => {
 
               {/* Price */}
               <div className="mb-8">
-                <span className="text-5xl font-bold tracking-tighter">
-                  {plan.price}
-                </span>
-                <span className="text-zinc-500 text-sm">/ {plan.period}</span>
+                <p className="text-zinc-500 text-sm mb-1 font-medium">{t.pricing.startingFrom}</p>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl lg:text-5xl font-bold tracking-tighter">
+                    {plan.price}
+                  </span>
+                </div>
               </div>
 
               {/* Features */}
@@ -93,10 +96,22 @@ const Pricing = () => {
               </ul>
 
               {/* Setup Fee */}
-              <div className="pt-6 border-t border-zinc-200">
+              <div className="pt-6 border-t border-zinc-200 mb-8">
                 <p className="text-xs text-zinc-500 mb-2">{t.pricing.setupFee}</p>
                 <p className="text-lg font-semibold">{plan.setupFee}</p>
               </div>
+
+              {/* Action Button */}
+              <Link 
+                to="/contact"
+                className={`w-full py-4 px-6 rounded-full font-bold flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105 ${
+                  index === 1 
+                    ? "bg-brand-navy text-white hover:bg-brand-navy/90" 
+                    : "bg-prime-accent text-zinc-950 hover:bg-[#cbe635]"
+                }`}
+              >
+                {t.pricing.buttonText}
+              </Link>
             </div>
           ))}
         </div>

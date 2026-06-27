@@ -515,6 +515,20 @@ const ContactPage = () => {
                   )}
                 </form>
               )}
+
+              {/* WhatsApp Alternative */}
+              <div className="mt-12 pt-8 border-t border-zinc-100">
+                <p className="text-zinc-500 text-sm text-center mb-4 font-medium">{t.contact.orWhatsapp}</p>
+                <a 
+                  href="https://wa.me/6287876982219" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 p-4 bg-green-500 text-white rounded-full font-semibold transition-all duration-300 hover:bg-green-600 hover:scale-105 active:scale-95 shadow-lg shadow-green-500/20"
+                >
+                  <MessageCircle size={20} />
+                  WhatsApp
+                </a>
+              </div>
             </div>
 
             {/* ── RIGHT: INFO ── */}

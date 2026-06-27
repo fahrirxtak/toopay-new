@@ -88,9 +88,11 @@ export const translations = {
 
     pricing: {
       sectionTag: "(HARGA - 02.5)",
-      title: "Paket Harga Website",
+      title: "Solusi Digital & Pengembangan Web",
       setupFee: "Biaya Setup",
       maintenance: "Gratis update / edit halaman yang sudah ada selama 3 bulan",
+      startingFrom: "Mulai dari",
+      buttonText: "Konsultasi Gratis",
       plans: [
         {
           name: "Landing Page",
@@ -342,6 +344,7 @@ export const translations = {
       timezoneValue: "WIB — GMT+7",
       socialLinks: ["Instagram", "Twitter (X)", "LinkedIn", "TikTok"],
       whatsappAriaLabel: "Chat via WhatsApp",
+      orWhatsapp: "Atau hubungi via WhatsApp",
       currencies: [
         { code: "USD", symbol: "$", name: "Dolar AS" },
         { code: "IDR", symbol: "Rp", name: "Rupiah Indonesia" },
@@ -569,9 +572,11 @@ export const translations = {
 
     pricing: {
       sectionTag: "(PRICING - 02.5)",
-      title: "Website Pricing Packages",
+      title: "Digital Solutions & Web Development",
       setupFee: "Setup Fee",
       maintenance: "Free update / edit existing page for 3 months",
+      startingFrom: "Starting from",
+      buttonText: "Free Consultation",
       plans: [
         {
           name: "Landing Page",
@@ -822,6 +827,7 @@ export const translations = {
       timezoneValue: "WIB — GMT+7",
       socialLinks: ["Instagram", "Twitter (X)", "LinkedIn", "TikTok"],
       whatsappAriaLabel: "Chat on WhatsApp",
+      orWhatsapp: "Or contact via WhatsApp",
       currencies: [
         { code: "USD", symbol: "$", name: "US Dollar" },
         { code: "IDR", symbol: "Rp", name: "Indonesian Rupiah" },
