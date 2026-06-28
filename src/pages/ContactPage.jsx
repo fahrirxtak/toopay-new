@@ -198,6 +198,16 @@ const ContactPage = () => {
         },
         EMAILJS_PUBLIC_KEY,
       );
+
+      // Google Ads Conversion
+      if (window.gtag) {
+        window.gtag("event", "conversion", {
+          send_to: "AW-18244350089/7RwACL7_wsYcEInhyvtD",
+          value: 1,
+          currency: form.currency || "IDR",
+        });
+      }
+
       setSubmitted(true);
     } catch (err) {
       setError(t.contact.errorText);
@@ -518,12 +528,22 @@ const ContactPage = () => {
 
               {/* WhatsApp Alternative */}
               <div className="mt-12 pt-8 border-t border-zinc-100">
-                <p className="text-zinc-500 text-sm text-center mb-4 font-medium">{t.contact.orWhatsapp}</p>
-                <a 
-                  href="https://wa.me/6287876982219" 
-                  target="_blank" 
+                <p className="text-zinc-500 text-sm text-center mb-4 font-medium">
+                  {t.contact.orWhatsapp}
+                </p>
+                <a
+                  href="https://wa.me/6287876982219"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 p-4 bg-green-500 text-white rounded-full font-semibold transition-all duration-300 hover:bg-green-600 hover:scale-105 active:scale-95 shadow-lg shadow-green-500/20"
+                  onClick={() => {
+                    if (window.gtag) {
+                      window.gtag("event", "conversion", {
+                        send_to: "AW-18244350089/7RwACL7_wsYcEInhyvtD",
+                        value: 1,
+                        currency: "IDR",
+                      });
+                    }
+                  }}
                 >
                   <MessageCircle size={20} />
                   WhatsApp
@@ -584,7 +604,9 @@ const ContactPage = () => {
                       <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 mb-1">
                         {t.contact.timezoneLabel}
                       </p>
-                      <p className="text-brand-navy font-medium">{t.contact.timezoneValue}</p>
+                      <p className="text-brand-navy font-medium">
+                        {t.contact.timezoneValue}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -627,17 +649,15 @@ const ContactPage = () => {
                   {t.contact.followUs}
                 </p>
                 <div className="flex flex-wrap gap-3">
-                  {t.contact.socialLinks.map(
-                    (s) => (
-                      <a
-                        key={s}
-                        href="#"
-                        className="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-200 text-zinc-500 text-xs font-semibold hover:border-brand-navy hover:text-brand-navy transition-all"
-                      >
-                        {s} <ArrowUpRight size={12} />
-                      </a>
-                    ),
-                  )}
+                  {t.contact.socialLinks.map((s) => (
+                    <a
+                      key={s}
+                      href="#"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-200 text-zinc-500 text-xs font-semibold hover:border-brand-navy hover:text-brand-navy transition-all"
+                    >
+                      {s} <ArrowUpRight size={12} />
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
@@ -648,6 +668,15 @@ const ContactPage = () => {
         href="https://wa.me/6287876982219"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => {
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "conversion", {
+              send_to: "AW-18244350089/7RwACL7_wsYcEInhyvtD",
+              value: 1,
+              currency: "IDR",
+            });
+          }
+        }}
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-5 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
         aria-label={t.contact.whatsappAriaLabel}
       >

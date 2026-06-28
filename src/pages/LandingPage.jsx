@@ -35,6 +35,15 @@ const LandingPage = () => {
         href="https://wa.me/6287876982219"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => {
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "conversion", {
+              send_to: "AW-18244350089/7RwACL7_wsYcEInhyvtD",
+              value: 1,
+              currency: "IDR",
+            });
+          }
+        }}
         className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-5 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
         aria-label={t.contact.whatsappAriaLabel}
       >
