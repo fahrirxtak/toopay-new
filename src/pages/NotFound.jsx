@@ -2,9 +2,15 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useLanguage } from "../i18n/LanguageContext";
+import { useEffect } from "react";
 
 export default function NotFound() {
   const { t } = useLanguage();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <motion.main
       className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden"

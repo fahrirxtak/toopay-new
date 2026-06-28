@@ -41,17 +41,21 @@ const brands = [
   { name: "spotify", logo: "(spotify)" },
 ];
 
-const miniPlaceHolderImage =
-  "/images/projects/project-3.webp";
+const miniPlaceHolderImage = "/images/projects/project-10.webp";
 
-const ourTeamImagePlaceHolder =
-  "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop";
+const ourTeamImagePlaceHolder = "/images/ToopayLogo.webp";
 
 // Structural data only — translatable text (title/date/tags) lives in
 // src/i18n/translations.js under `work.projects`, merged by index.
 const projects = [
-  { image: "/images/projects/project-1.webp", link: "https://growthica.vercel.app/" },
-  { image: "/images/projects/project-9.webp", link: "https://lyca-psi.vercel.app/" },
+  {
+    image: "/images/projects/project-1.webp",
+    link: "https://growthica.vercel.app/",
+  },
+  {
+    image: "/images/projects/project-9.webp",
+    link: "https://lyca-psi.vercel.app/",
+  },
 ];
 
 // `label` lives in translations.js under `work.milestones`, merged by index.
@@ -66,21 +70,16 @@ const milestones = [
 const testimonials = [
   {
     author: "Guy Hawkins",
-    company: "Webflow",
-    companyInitial: "W",
     avatar: "/images/user-1.png",
     stat: "+80%",
   },
   {
     author: "Sarah Jenkins",
-    company: "Spotify",
-    companyInitial: "S",
     avatar: "/images/user-2.png",
     stat: "+65%",
   },
   {
     author: "Marcus Wright",
-    company: "Coinbase",
     companyInitial: "C",
     avatar: "/images/user-3.png",
     stat: "+92%",
@@ -112,6 +111,60 @@ const logoLoopTech = [
     name: "Tailwind CSS",
     href: "https://tailwindcss.com",
     icon: "tailwind",
+  },
+  {
+    type: "icon",
+    name: "HTML5",
+    href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+    icon: "html",
+  },
+  {
+    type: "icon",
+    name: "CSS3",
+    href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+    icon: "css",
+  },
+  {
+    type: "icon",
+    name: "JavaScript",
+    href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+    icon: "javascript",
+  },
+  {
+    type: "icon",
+    name: "Laravel",
+    href: "https://laravel.com",
+    icon: "laravel",
+  },
+  {
+    type: "icon",
+    name: "Python",
+    href: "https://www.python.org",
+    icon: "python",
+  },
+  {
+    type: "icon",
+    name: "Figma",
+    href: "https://www.figma.com",
+    icon: "figma",
+  },
+  {
+    type: "icon",
+    name: "GitHub",
+    href: "https://github.com",
+    icon: "github",
+  },
+  {
+    type: "icon",
+    name: "Git",
+    href: "https://git-scm.com",
+    icon: "git",
+  },
+  {
+    type: "icon",
+    name: "Postman",
+    href: "https://www.postman.com",
+    icon: "postman",
   },
 ];
 

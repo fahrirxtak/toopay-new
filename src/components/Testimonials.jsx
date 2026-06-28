@@ -7,6 +7,15 @@ import {
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
+  SiHtml5,
+  SiCss,
+  SiJavascript,
+  SiLaravel,
+  SiPython,
+  SiFigma,
+  SiGithub,
+  SiGit,
+  SiPostman,
 } from "react-icons/si";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -15,29 +24,56 @@ import { splitWords, revealWords, revealFade } from "../utils/gsapReveal";
 gsap.registerPlugin(ScrollTrigger);
 
 const iconMap = {
-  react: <SiReact />,
-  nextjs: <SiNextdotjs />,
-  typescript: <SiTypescript />,
-  tailwind: <SiTailwindcss />,
+  react: { icon: <SiReact />, color: "#61DAFB" },
+  nextjs: { icon: <SiNextdotjs />, color: "#000000" },
+  typescript: { icon: <SiTypescript />, color: "#3178C6" },
+  tailwind: { icon: <SiTailwindcss />, color: "#06B6D4" },
+  html: { icon: <SiHtml5 />, color: "#E34F26" },
+  css: { icon: <SiCss />, color: "#1572B6" },
+  javascript: { icon: <SiJavascript />, color: "#F7DF1E" },
+  laravel: { icon: <SiLaravel />, color: "#FF2D20" },
+  python: { icon: <SiPython />, color: "#3776AB" },
+  figma: { icon: <SiFigma />, color: "#F24E1E" },
+  github: { icon: <SiGithub />, color: "#181717" },
+  git: { icon: <SiGit />, color: "#F05032" },
+  postman: { icon: <SiPostman />, color: "#FF6C37" },
 };
 
 const renderLogoItem = (item) => {
-  const IconComponent = iconMap[item.icon];
-  return IconComponent ? (
+  const entry = iconMap[item.icon];
+  if (!entry) return null;
+
+  const content = (
+    <span
+      className="inline-flex items-center justify-center text-[length:var(--logoloop-logoHeight)] leading-none"
+      style={{ color: entry.color }}
+      title={item.name}
+    >
+      {entry.icon}
+    </span>
+  );
+
+  return item.href ? (
     <a
       href={item.href}
       target="_blank"
       rel="noopener noreferrer"
       className="inline-flex items-center"
+      aria-label={item.name}
     >
-      {IconComponent}
+      {content}
     </a>
-  ) : null;
+  ) : (
+    content
+  );
 };
 
 const Testimonials = () => {
   const { t } = useLanguage();
-  const testimonials = testimonialData.map((item, i) => ({ ...item, ...t.testimonials.items[i] }));
+  const testimonials = testimonialData.map((item, i) => ({
+    ...item,
+    ...t.testimonials.items[i],
+  }));
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -52,42 +88,46 @@ const Testimonials = () => {
   const current = testimonials[activeIndex];
 
   // Awwwards-style content swap (mask reveal)
-  const animateChange = useCallback((newIndex) => {
-    if (isAnimating) return;
-    setIsAnimating(true);
+  const animateChange = useCallback(
+    (newIndex) => {
+      if (isAnimating) return;
+      setIsAnimating(true);
 
-    const els = [
-      quoteRef.current,
-      authorRef.current,
-      companyRef.current,
-      statsNumberRef.current,
-    ].filter(Boolean);
+      const els = [
+        quoteRef.current,
+        authorRef.current,
+        companyRef.current,
+        statsNumberRef.current,
+      ].filter(Boolean);
 
-    gsap.to(els, {
-      opacity: 0,
-      y: -20,
-      duration: 0.4,
-      ease: "expo.in",
-      onComplete: () => {
-        setActiveIndex(newIndex);
-        gsap.fromTo(
-          els,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            ease: "expo.out",
-            stagger: 0.08,
-            onComplete: () => setIsAnimating(false),
-          }
-        );
-      },
-    });
-  }, [isAnimating]);
+      gsap.to(els, {
+        opacity: 0,
+        y: -20,
+        duration: 0.4,
+        ease: "expo.in",
+        onComplete: () => {
+          setActiveIndex(newIndex);
+          gsap.fromTo(
+            els,
+            { opacity: 0, y: 24 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.9,
+              ease: "expo.out",
+              stagger: 0.08,
+              onComplete: () => setIsAnimating(false),
+            },
+          );
+        },
+      });
+    },
+    [isAnimating],
+  );
 
   const handlePrev = () => {
-    const newIndex = (activeIndex - 1 + testimonials.length) % testimonials.length;
+    const newIndex =
+      (activeIndex - 1 + testimonials.length) % testimonials.length;
     animateChange(newIndex);
   };
 
@@ -142,12 +182,18 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="reviews" className="py-24 bg-white text-brand-navy">
+    <section
+      ref={sectionRef}
+      id="reviews"
+      className="py-24 bg-white text-brand-navy"
+    >
       <div className="container mx-auto px-6 lg:px-4">
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-end border-b border-zinc-100 pb-12 mb-16">
           <div>
-            <p className="text-sm font-medium text-zinc-500 mb-4">{t.testimonials.sectionTag}</p>
+            <p className="text-sm font-medium text-zinc-500 mb-4">
+              {t.testimonials.sectionTag}
+            </p>
             <h2
               ref={headingRef}
               className="text-5xl md:text-6xl lg:text-9xl font-semibold tracking-tighter text-blue-600"
@@ -198,10 +244,15 @@ const Testimonials = () => {
             </p>
 
             <div className="mt-16">
-              <span ref={statsNumberRef} className="text-7xl font-bold tracking-tighter text-brand-navy">
+              <span
+                ref={statsNumberRef}
+                className="text-7xl font-bold tracking-tighter text-brand-navy"
+              >
                 {current.stat}
               </span>
-              <p className="text-zinc-500 text-sm mt-2 font-medium">{current.statLabel}</p>
+              <p className="text-zinc-500 text-sm mt-2 font-medium">
+                {current.statLabel}
+              </p>
             </div>
           </div>
 
@@ -212,42 +263,11 @@ const Testimonials = () => {
             >
               "{current.quote}"
             </blockquote>
-
-            <div className="flex items-center justify-between gap-8">
-              <div ref={authorRef} className="flex items-center gap-4">
-                <div className="size-14 rounded-full overflow-hidden bg-zinc-100">
-                  <img
-                    src={current.avatar}
-                    alt={current.author}
-                    className="size-full object-cover"
-                  />
-                </div>
-                <div>
-                  <h4 className="font-bold text-lg leading-none">{current.author}</h4>
-                  <p className="text-zinc-500 text-sm mt-1">{current.role}</p>
-                </div>
-              </div>
-
-              <div
-                ref={companyRef}
-                className="flex items-center gap-2 text-2xl font-bold tracking-tighter text-brand-navy/40"
-              >
-                <span className="text-brand-navy">{current.companyInitial}</span>
-                <span>{current.company}</span>
-              </div>
-            </div>
           </div>
         </div>
 
         {/* Brand Footer */}
         <div className="mt-20">
-          <div className="flex items-center gap-2 mb-8">
-            <span className="text-zinc-900 text-lg">•</span>
-            <p className="text-sm font-semibold text-zinc-800">
-              {t.testimonials.brandFooter}
-            </p>
-          </div>
-
           <div ref={logoLoopRef} className="relative h-[120px]">
             <LogoLoop
               logos={logoLoopTech}
@@ -257,8 +277,8 @@ const Testimonials = () => {
               gap={64}
               scaleOnHover
               fadeOut={false}
-              fullWidthSequence={true}
-              loop={false}
+              fullWidthSequence={false}
+              loop={true}
               ariaLabel="Technology partners"
               renderItem={renderLogoItem}
             />

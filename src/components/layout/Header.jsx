@@ -122,6 +122,7 @@ const Header = () => {
             charsHover,
             {
               yPercent: 0,
+              opacity: 1,
               duration: 0.5,
               ease: "power2.out",
               stagger: 0.02,
@@ -140,6 +141,7 @@ const Header = () => {
         tlHover
           .to(charsHover, {
             yPercent: 120,
+            opacity: 0,
             duration: 0.5,
             ease: "power2.out",
             stagger: 0.02,
@@ -278,7 +280,7 @@ const Header = () => {
                     {t.nav.getConnected}
                   </span>
                   <span
-                    className="block absolute top-0 left-0 text-hover text-white text-[10px] lg:text-xs font-bold uppercase tracking-widest w-full"
+                    className="block absolute top-0 left-0 text-hover text-white text-[10px] lg:text-xs font-bold uppercase tracking-widest w-full opacity-0"
                     style={{ lineHeight: "1" }}
                   >
                     {t.nav.getConnected}

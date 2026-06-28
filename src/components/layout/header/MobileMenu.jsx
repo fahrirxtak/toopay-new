@@ -363,7 +363,7 @@ const MobileMenu = ({ isOpen, onClose, isAnimating, setIsAnimating }) => {
                                 {t.mobileMenu.locationLabel}
                             </h4>
                             <p className="text-sm font-medium leading-relaxed">
-                                Bandung <br /> Jawa Barat, Indonesia
+                                {t.mobileMenu.locationValue}
                             </p>
                         </div>
 
@@ -373,8 +373,8 @@ const MobileMenu = ({ isOpen, onClose, isAnimating, setIsAnimating }) => {
                                 {t.mobileMenu.contactLabel}
                             </h4>
                             <p className="text-sm font-medium leading-relaxed">
-                                +62 878 7698 2219 <br />
-                                tooopayy@gmail.com
+                                {t.mobileMenu.phone} <br />
+                                {t.mobileMenu.email}
                             </p>
                         </div>
                     </div>
@@ -393,7 +393,7 @@ const MobileMenu = ({ isOpen, onClose, isAnimating, setIsAnimating }) => {
                                 rel="noopener noreferrer"
                                 className="cursor-pointer hover:text-white/60 transition"
                             >
-                                Instagram
+                                {t.mobileMenu.socials[0]}
                             </a>
                             <a
                                 href="https://tiktok.com"
@@ -401,7 +401,7 @@ const MobileMenu = ({ isOpen, onClose, isAnimating, setIsAnimating }) => {
                                 rel="noopener noreferrer"
                                 className="cursor-pointer hover:text-white/60 transition"
                             >
-                                Tiktok
+                                {t.mobileMenu.socials[1]}
                             </a>
                         </div>
                     </div>
