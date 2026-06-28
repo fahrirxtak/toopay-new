@@ -228,7 +228,7 @@ export const translations = {
         {
           question: "Berapa lama waktu pengerjaan website?",
           answer:
-            "Waktu pengerjaan bervariasi tergantung jenis website: Landing Page 1-2 hari, Company Profile 3-4 hari, dan Custom Website 6-7 hari. Kami akan memberikan estimasi waktu yang lebih spesifik setelah diskusi awal.",
+            "Waktu pengerjaan bervariasi tergantung jenis website: Landing Page 1-2 hari, Company Profile 3-4 hari,  dan Custom Website 6-7 hari. Kami akan memberikan estimasi waktu yang lebih spesifik setelah diskusi awal.",
         },
         {
           question: "Apakah harga sudah termasuk domain dan hosting?",
